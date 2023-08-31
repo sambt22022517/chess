@@ -1,4 +1,5 @@
 # ChessProject
+![Alt text](BoardChess-1.png)
 Coi các quân , ô cờ đều là các đối tượng
 Các class: Pawn, Knight, Bishop, Queen, Rock, King, từ đây triển khai cho loại quân trắng và đen
 
