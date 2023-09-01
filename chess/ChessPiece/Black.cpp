@@ -1,10 +1,11 @@
-#ifndef Black
-#define Black
+#ifndef BLACK
+#define BLACK
 
 #include <bits/stdc++.h>
+#include "ChessPiece.cpp"
 using namespace std;
 
-class Black{
+class Black : ChessPiece{
 
 };
 

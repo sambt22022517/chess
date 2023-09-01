@@ -1,5 +1,5 @@
-#ifndef Knight
-#define Knight
+#ifndef KNIGHT
+#define KNIGHT
 
 #include <bits/stdc++.h>
 using namespace std;

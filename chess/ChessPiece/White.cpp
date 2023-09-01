@@ -1,10 +1,11 @@
-#ifndef White
-#define White
+#ifndef WHITE
+#define WHITE
 
 #include <bits/stdc++.h>
+#include "ChessPiece.cpp"
 using namespace std;
 
-class White{
+class White : ChessPiece{
 
 };
 

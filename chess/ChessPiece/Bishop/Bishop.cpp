@@ -1,5 +1,5 @@
-#ifndef Bishop
-#define Bishop
+#ifndef BISHOP
+#define BISHOP
 
 #include <bits/stdc++.h>
 using namespace std;

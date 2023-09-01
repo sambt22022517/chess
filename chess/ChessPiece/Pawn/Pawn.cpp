@@ -1,5 +1,5 @@
-#ifndef Pawn
-#define Pawn
+#ifndef PAWN
+#define PAWN
 
 #include <bits/stdc++.h>
 using namespace std;

@@ -1,5 +1,5 @@
-#ifndef King
-#define King
+#ifndef KING
+#define KING
 
 #include <bits/stdc++.h>
 using namespace std;

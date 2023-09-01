@@ -1,5 +1,5 @@
-#ifndef Board
-#define Board
+#ifndef BOARD
+#define BOARD
 
 #include <bits/stdc++.h>
 #include "Square.cpp"

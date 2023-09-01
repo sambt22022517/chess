@@ -1,5 +1,5 @@
-#ifndef Rock
-#define Rock
+#ifndef ROCK
+#define ROCK
 
 #include <bits/stdc++.h>
 using namespace std;

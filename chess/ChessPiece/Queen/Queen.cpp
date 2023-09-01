@@ -1,5 +1,5 @@
-#ifndef Queen
-#define Queen
+#ifndef QUEEN
+#define QUEEN
 
 #include <bits/stdc++.h>
 using namespace std;
