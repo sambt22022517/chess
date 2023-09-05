@@ -9,6 +9,7 @@ class Board{
 private:
     vector<Square> square;
 public:
+    
 };
 
 #endif
