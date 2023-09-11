@@ -2,7 +2,7 @@
 #define SQUARE
 
 #include <bits/stdc++.h>
-#include "chess\ChessPiece\ChessPiece.cpp"
+#include "..\ChessPiece\ChessPiece.cpp"
 using namespace std;
 
 class Square{

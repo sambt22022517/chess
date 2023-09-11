@@ -1,4 +1,20 @@
 # ChessProject
+CHÚ Ý: CÁC KÍ HIỆU:
+    viết hoa đại diện cho quân trắng(W), viết thường đại diện cho quân đen(B)
+    tốt: p, P
+    hậu: q, Q
+    xe: r, R
+    mã:n, N
+    vua: k, K
+    tượng: b, B
+
+QUAN TRỌNG: CẨN THẬN LÀM VIỆC VỚI CLASS "Null"
+            Không nên sử dụng hàm tạo, thay vào đó hãy sử dụng hàm "creatPiece", VD: ChessPiece* c = creatPiece("a1P");
+            trong đó "a1P" là vị trí của quân tốt trắng trên bàn cờ
+
+Thêm hàm hủy vào class ChessPiece để giải phóng bộ nhớ
+
+
 ![Alt text](BoardChess.png)
 Coi các quân , ô cờ đều là các đối tượng
 Các class: Pawn, Knight, Bishop, Queen, Rock, King, từ đây triển khai cho loại quân trắng và đen
@@ -22,4 +38,10 @@ Tính chất:
 -vượt qua các quân khác để đi tới ô hợp lệ
 
 Bishop, Queen, Rock, King, tương tự
+
+**************
+
+
+
+
 
