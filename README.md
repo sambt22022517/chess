@@ -13,6 +13,7 @@ QUAN TRỌNG: CẨN THẬN LÀM VIỆC VỚI CLASS "Null"
             trong đó "a1P" là vị trí của quân tốt trắng trên bàn cờ
 
 Thêm hàm hủy vào class ChessPiece để giải phóng bộ nhớ
+mỗi lần di chuyển phải cập nhật dataBoard(được khai báo ở cuối file chessPiece) và các biến
 
 
 ![Alt text](BoardChess.png)

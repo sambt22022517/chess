@@ -23,7 +23,7 @@ protected:
     char kindPiece;//là quân cờ nào
 public:
     ChessPiece(){
-
+        
     }
 
     ChessPiece(char kind, string start){
@@ -35,11 +35,12 @@ public:
     }
 
     virtual vector<Point> validMove(){
+        // trả về một chuỗi các điểm mà quân cờ có thể đi tới
         return {Point(7,7)};
     }
 
     virtual void move(){
-
+        // di chuyển quân cờ tới ô hợp lệ
     }
 
     char getkindPiece(){
