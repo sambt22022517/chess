@@ -8,13 +8,14 @@ CHÚ Ý: CÁC KÍ HIỆU:
     vua: k, K
     tượng: b, B
 
-QUAN TRỌNG: CẨN THẬN LÀM VIỆC VỚI CLASS "Null"
-            Không nên sử dụng hàm tạo, thay vào đó hãy sử dụng hàm "creatPiece", VD: ChessPiece* c = creatPiece("a1P");
-            trong đó "a1P" là vị trí của quân tốt trắng trên bàn cờ
+QUAN TRỌNG: CẨN THẬN LÀM VIỆC VỚI CLASS "Null";
+            Không nên sử dụng hàm tạo cho các class liên quan đến chessPiece, thay vào đó hãy sử dụng hàm "creatPiece", VD: ChessPiece* c = creatPiece("a1P");
+            trong đó "a1P" là vị trí của quân tốt trắng trên bàn cờ;
 
-Thêm hàm hủy vào class ChessPiece để giải phóng bộ nhớ
-mỗi lần di chuyển phải cập nhật dataBoard(được khai báo ở cuối file chessPiece) và các biến
+Thêm hàm hủy vào class ChessPiece để giải phóng bộ nhớ;
+mỗi lần di chuyển phải cập nhật dataBoard(được khai báo ở cuối file chessPiece) và các biến;
 
+chạy hàm main để thấy rằng code đã chạy ổn định
 
 ![Alt text](BoardChess.png)
 Coi các quân , ô cờ đều là các đối tượng
