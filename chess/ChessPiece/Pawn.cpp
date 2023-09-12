@@ -30,15 +30,21 @@ public:
         code test
         */
         int i = coordinate.get_i(), j = coordinate.get_j();
-        return {Point(i + 1, j), Point(i + 2, j)};
+        vector<Point> output;
+        output.push_back(Point(i + 1, j));
+        if (not firstmove) {
+            output.push_back(Point(i + 2, j));
+        }
+        ChessPiece* c1 = dataBoard[i + 1][j + 1];
+        if (c1 != nullptr and c->getkind() != this->kind) output.push_back(Point(i + 1, j + 1));
 
+        ChessPiece* c2 = dataBoard[i + 1][j - 1];
+        if (c2 != nullptr and c->getkind() != this->kind) output.push_back(Point(i + 1, j - 1));
+
+        return output;
         /*
         new code here
         */
-    }
-
-    bool move(string end) override{
-        return true;
     }
 };
 

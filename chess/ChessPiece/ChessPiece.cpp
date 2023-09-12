@@ -39,11 +39,33 @@ public:
         return {Point(7,7)};
     }
 
-    virtual bool move(string end){
+    bool move(string end){
         // kiểm tra nước đi có hợp lệ ko, nếu ko trả về false
         // di chuyển quân cờ tới ô hợp lệ
+        
+        for(auto i: validMove()){
+            if(Point::compare(i, Point::to_int(end[0], end[1]))){
+                firstmove = true;
+                Point old_coordinate = coordinate;
+                coordinate = Point::to_int(end[0], end[1]);
 
-        return end != "";
+                // xóa quân cờ ở ô cần đến(nếu có)
+                if(dataBoard[coordinate.get_i()][coordinate.get_j()] != nullptr){
+                    ChessPiece* c = dataBoard[coordinate.get_i()][coordinate.get_j()];
+                    dataBoard[coordinate.get_i()][coordinate.get_j()] = nullptr;
+                    delete(c);
+                }
+                
+                // chuyển quân cờ từ ô cũ sang ô mới
+                dataBoard[coordinate.get_i()][coordinate.get_j()] = dataBoard[old_coordinate.get_i()][old_coordinate.get_j()];
+
+                // cho ô cũ là rỗng
+                dataBoard[old_coordinate.get_i()][old_coordinate.get_j()] = nullptr;
+            }
+        }
+        return false;
+
+        // return end != "";
     }
 
     char getkindPiece(){

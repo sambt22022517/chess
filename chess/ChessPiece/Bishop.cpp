@@ -45,29 +45,6 @@ public:
         }
         return output;
     }
-
-    bool move(string end) override{
-        for(auto i: validMove()){
-            if(Point::compare(i, Point::to_int(end[0], end[1]))){
-                firstmove = true;
-                Point old_coordinate = coordinate;
-                coordinate = Point::to_int(end[0], end[1]);
-
-                // xóa quân cờ ở ô cần đến(nếu có)
-                if(dataBoard[coordinate.get_i()][coordinate.get_j()] != nullptr){
-                    // delete(dataBoard[coordinate.get_i()][coordinate.get_j()]);
-                }
-                
-                // chuyển quân cờ từ ô cũ sang ô mới
-                dataBoard[coordinate.get_i()][coordinate.get_j()] = dataBoard[old_coordinate.get_i()][old_coordinate.get_j()];
-
-                // cho ô cũ là rỗng
-                dataBoard[old_coordinate.get_i()][old_coordinate.get_j()] = nullptr;
-                
-            }
-        }
-        return false;
-    }
 };
 
 
