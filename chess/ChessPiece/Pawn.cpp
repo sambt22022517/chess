@@ -29,7 +29,7 @@ public:
         /*
         code test
         */
-        int i = corrdinate.get_i(), j = corrdinate.get_j();
+        int i = coordinate.get_i(), j = coordinate.get_j();
         return {Point(i + 1, j), Point(i + 2, j)};
 
         /*

@@ -16,7 +16,7 @@ const char nullsquare = '.';
 
 class ChessPiece{
 protected:
-    Point corrdinate;// vị trí trên bàn cờ
+    Point coordinate;// vị trí trên bàn cờ
     int score;// diểm của quân cờ
     bool firstmove;// kiểm tra đã đi nước đầu tiên hay chưa
     char kind;// loại quân cờ trắng hay đen hay null
@@ -31,7 +31,7 @@ public:
 
         firstmove = false;
 
-        corrdinate = Point::to_int(start[0], start[1]);
+        coordinate = Point::to_int(start[0], start[1]);
     }
 
     virtual vector<Point> validMove(){
@@ -54,8 +54,8 @@ public:
         return kind;
     }
 
-    Point getCorrdinate(){
-        return corrdinate;
+    Point getcoordinate(){
+        return coordinate;
     }
 };
 

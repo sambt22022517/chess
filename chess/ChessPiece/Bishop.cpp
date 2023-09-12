@@ -28,7 +28,7 @@ public:
         vector<Point> director = {EN, ES, WN, WS};
         vector<Point> output;
         for(auto i: director){
-            Point current = corrdinate;
+            Point current = coordinate;
             while(Point::checkValid(current.get_i() + i.get_i(), current.get_j() + i.get_j())){
                 ChessPiece* c = dataBoard[current.get_i() + i.get_i()][current.get_j() + i.get_j()];
                 if(c == nullptr){
@@ -50,19 +50,19 @@ public:
         for(auto i: validMove()){
             if(Point::compare(i, Point::to_int(end[0], end[1]))){
                 firstmove = true;
-                Point old_corrdinate = corrdinate;
-                corrdinate = Point::to_int(end[0], end[1]);
+                Point old_coordinate = coordinate;
+                coordinate = Point::to_int(end[0], end[1]);
 
                 // xóa quân cờ ở ô cần đến(nếu có)
-                if(dataBoard[corrdinate.get_i()][corrdinate.get_j()] != nullptr){
-                    // delete(dataBoard[corrdinate.get_i()][corrdinate.get_j()]);
+                if(dataBoard[coordinate.get_i()][coordinate.get_j()] != nullptr){
+                    // delete(dataBoard[coordinate.get_i()][coordinate.get_j()]);
                 }
                 
                 // chuyển quân cờ từ ô cũ sang ô mới
-                dataBoard[corrdinate.get_i()][corrdinate.get_j()] = dataBoard[old_corrdinate.get_i()][old_corrdinate.get_j()];
+                dataBoard[coordinate.get_i()][coordinate.get_j()] = dataBoard[old_coordinate.get_i()][old_coordinate.get_j()];
 
                 // cho ô cũ là rỗng
-                dataBoard[old_corrdinate.get_i()][old_corrdinate.get_j()] = nullptr;
+                dataBoard[old_coordinate.get_i()][old_coordinate.get_j()] = nullptr;
                 
             }
         }
