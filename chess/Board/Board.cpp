@@ -38,6 +38,16 @@ public:
         chessPiece = {};
 
     }
+
+    void selfSetup_Board(vector<string> start){
+        dataBoard = vector<vector<ChessPiece*>> (8, vector<ChessPiece*> (8, nullptr));
+
+        for(auto i: start){
+            Point a;
+            a.point_char(i[0],i[1]);
+            dataBoard[a.get_i()][a.get_j()] = creatPiece(i);
+        }
+    }
     
     void displayBoard(){
         for(auto i: dataBoard){

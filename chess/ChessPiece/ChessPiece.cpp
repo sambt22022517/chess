@@ -42,11 +42,16 @@ public:
     virtual bool move(string end){
         // kiểm tra nước đi có hợp lệ ko, nếu ko trả về false
         // di chuyển quân cờ tới ô hợp lệ
-        return true;
+
+        return end != "";
     }
 
     char getkindPiece(){
         return kindPiece;
+    }
+
+    char getkind(){
+        return kind;
     }
 
     Point getCorrdinate(){
