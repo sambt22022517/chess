@@ -18,6 +18,7 @@ mỗi lần di chuyển phải cập nhật dataBoard(được khai báo ở cu�
 chạy hàm main để thấy rằng code đã chạy ổn định
 
 ![Alt text](BoardChess.png)
+
 Coi các quân , ô cờ đều là các đối tượng
 Các class: Pawn, Knight, Bishop, Queen, Rock, King, từ đây triển khai cho loại quân trắng và đen
 
