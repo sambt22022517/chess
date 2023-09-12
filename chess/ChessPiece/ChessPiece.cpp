@@ -39,8 +39,10 @@ public:
         return {Point(7,7)};
     }
 
-    virtual void move(){
+    virtual bool move(string end){
+        // kiểm tra nước đi có hợp lệ ko, nếu ko trả về false
         // di chuyển quân cờ tới ô hợp lệ
+        return true;
     }
 
     char getkindPiece(){

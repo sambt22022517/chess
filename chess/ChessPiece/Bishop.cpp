@@ -25,11 +25,12 @@ public:
     }
 
     vector<Point> validMove() override{
+        
         return {};
     }
 
-    void move() override{
-
+    bool move(string end) override{
+        return true;
     }
 };
 

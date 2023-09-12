@@ -23,8 +23,8 @@ public:
         return {};
     }
 
-    void move() override{
-
+    bool move(string end) override{
+        return true;
     }
 };
 
