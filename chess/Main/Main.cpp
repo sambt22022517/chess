@@ -1,7 +1,6 @@
 #include <bits/stdc++.h>
 #include "..\Utility\Utility.cpp"
 #include "..\Board\Board.cpp"
-#include "..\ChessPiece\Pawn.cpp"
 
 using namespace std;
 
@@ -15,7 +14,7 @@ int main(){
     //     cout<< endl;
     // }
     cout<< endl;
-    dataBoard[0][2]->move("e3");
+    b.get_dataBoard(0,2)->move("e3", true);
 
     b.displayBoard();
     

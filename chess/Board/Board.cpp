@@ -2,7 +2,7 @@
 #define BOARD
 
 #include <bits/stdc++.h>
-#include "Square.cpp"
+#include "..\ChessPiece\ChessPiece.cpp"
 #include "..\ChessPiece\Piece.cpp"
 
 using namespace std;
@@ -10,6 +10,10 @@ using namespace std;
 class Board{
 private:
     vector<ChessPiece> chessPiece;
+    /*
+    thông tin bàn cờ: mọi cập nhật, lấy dữ liệu bàn cờ đều thông qua biến này
+    */
+    vector<vector<ChessPiece*>> dataBoard;
 public:
     Board(){
 
@@ -34,7 +38,7 @@ public:
             a.point_char(i[0],i[1]);
             dataBoard[a.get_i()][a.get_j()] = creatPiece(i);
         }
-
+        ChessPiece::set_DataBoard(dataBoard);
         chessPiece = {};
 
     }
@@ -47,6 +51,7 @@ public:
             a.point_char(i[0],i[1]);
             dataBoard[a.get_i()][a.get_j()] = creatPiece(i);
         }
+        ChessPiece::set_DataBoard(dataBoard);
     }
     
     void displayBoard(){
@@ -57,6 +62,10 @@ public:
             }
             cout<< endl;
         }
+    }
+
+    ChessPiece* get_dataBoard(int i, int j){
+        return dataBoard[i][j];
     }
 
 };

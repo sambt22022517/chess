@@ -68,6 +68,15 @@ public:
     static bool compare(Point a, Point b){
         return a.i == b.i && a.j == b.j;
     }
+
+    static Point add(vector<Point> p){
+        Point po(0,0);
+        for(auto i: p){
+            po.i += i.i;
+            po.j += i.j;
+        }
+        return po;
+    }
 };
 
 Point WN(1, -1), WS(-1, -1), EN(1, 1), ES(-1, 1);

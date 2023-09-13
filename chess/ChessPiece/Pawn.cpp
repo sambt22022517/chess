@@ -26,25 +26,26 @@ public:
     }
     
     vector<Point> validMove() override{
-        /*
-        code test
-        */
-        int i = coordinate.get_i(), j = coordinate.get_j();
-        vector<Point> output;
-        output.push_back(Point(i + 1, j));
-        if (not firstmove) {
-            output.push_back(Point(i + 2, j));
-        }
-        ChessPiece* c1 = dataBoard[i + 1][j + 1];
-        if (c1 != nullptr and c->getkind() != this->kind) output.push_back(Point(i + 1, j + 1));
+        // /*
+        // code test
+        // */
+        // int i = coordinate.get_i(), j = coordinate.get_j();
+        // vector<Point> output;
+        // output.push_back(Point(i + 1, j));
+        // if (not firstmove) {
+        //     output.push_back(Point(i + 2, j));
+        // }
+        // ChessPiece* c1 = dataBoard[i + 1][j + 1];
+        // if (c1 != nullptr and c->getkind() != this->kind) output.push_back(Point(i + 1, j + 1));
 
-        ChessPiece* c2 = dataBoard[i + 1][j - 1];
-        if (c2 != nullptr and c->getkind() != this->kind) output.push_back(Point(i + 1, j - 1));
+        // ChessPiece* c2 = dataBoard[i + 1][j - 1];
+        // if (c2 != nullptr and c->getkind() != this->kind) output.push_back(Point(i + 1, j - 1));
 
-        return output;
+        // return output;
         /*
         new code here
         */
+       return {};
     }
 };
 
