@@ -20,11 +20,16 @@ public:
 
     }
 
+    // tạo 1 point với 2 biến i, j là vị trí(số) trên bàn cờ
     Point(int i, int j){
         this -> i = i;
         this -> j = j;
     }
 
+    // đầu vào là các kí tự trên bàn cờ, nếu hợp lệ thì ta sẽ có 1 point và được trả về true
+    // nếu không sẽ trả về true
+    // vd: point a;
+    // a.point_char('a','1'): hợp lệ, ta sẽ có a.i = ...
     bool point_char(char i, char j){
         if(!(i >= 'a' && i <= 'h')) return false;
         if(!(j >= '1' && j <= '8')) return false;
@@ -33,6 +38,7 @@ public:
         return true;
     }
 
+    // dùng hàm này để tạo 1 point với các kí tự
     static Point to_int(char i, char j){
         Point a;
         a.charPoint(i,j);
@@ -59,16 +65,18 @@ public:
         cout<< get_ci()<< " "<< get_cj();
     }
 
+    // kiểm tra đầu vào có hợp lệ
     static bool checkValid(int i, int j){
         if(!(i >= 0 && i <= 7)) return false;
         if(!(j >= 0 && j <= 7)) return false;
         return true;
     }
-
+    // so sánh 2 điểm, vector
     static bool compare(Point a, Point b){
         return a.i == b.i && a.j == b.j;
     }
 
+    // dùng để cộng các vector
     static Point add(vector<Point> p){
         Point po(0,0);
         for(auto i: p){
