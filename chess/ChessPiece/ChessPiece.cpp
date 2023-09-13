@@ -34,6 +34,13 @@ public:
 
         coordinate = Point::to_int(start[0], start[1]);
     }
+    static ChessPiece* get_dataBoard(int i, int j){
+        return dataBoard[i][j];
+    }
+
+    static vector<vector<ChessPiece*>> get_Board(){
+        return dataBoard;
+    }
 
     static void set_DataBoard(vector<vector<ChessPiece*>> &_dataBoard){
         dataBoard = _dataBoard;

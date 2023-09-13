@@ -55,7 +55,7 @@ public:
     }
     
     void displayBoard(){
-        for(auto i: dataBoard){
+        for(auto i: ChessPiece::get_Board()){
             for(auto j: i){
                 if(j != nullptr) cout<< j -> getkindPiece()<< " ";
                 else cout<< ". ";
@@ -65,7 +65,7 @@ public:
     }
 
     ChessPiece* get_dataBoard(int i, int j){
-        return dataBoard[i][j];
+        return ChessPiece::get_dataBoard(i,j);
     }
 
 };
