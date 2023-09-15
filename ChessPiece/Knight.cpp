@@ -2,7 +2,7 @@
 #define KNIGHT
 
 #include <bits/stdc++.h>
-#include "..\Utility\Utility.cpp"
+#include "..\Utility\Point.cpp"
 #include "ChessPiece.cpp"
 
 using namespace std;
@@ -23,6 +23,14 @@ public:
             ChessPiece:: score = scoreKnight;
             ChessPiece:: kindPiece = 'N';
         }
+
+        firstmove = true;
+        for(auto i: default_location){
+            if(i == start){
+                firstmove = false;
+                break;
+            }   
+        }
     }
 
     vector<Point> validMove() override {  
@@ -31,23 +39,24 @@ public:
                                   Point(-2, 1), Point(-1, 2), 
                                   Point(-2, -1), Point(-1, -2)};
         vector<Point> output;
-        Point current = coordinate;
+        Point current = location;
         for(auto i: director){
-            if (Point::checkValid(current.get_i() + i.get_i(), current.get_j() + i.get_j())){
-                ChessPiece* c = dataBoard[current.get_i() + i.get_i()][current.get_j() + i.get_j()];
+            if ((current + i).isValid()){
+                ChessPiece* c = get_dataBoard(current + i);
                 if(c == nullptr){
-                    output.push_back(Point(current.get_i() + i.get_i(), current.get_j() + i.get_j()));
+                    output.push_back(current + i);
                 } else {
-                    if (c->getkind() != kind) {
-                        output.push_back(Point(current.get_i() + i.get_i(), current.get_j() + i.get_j()));
+                    if (c->get_kind() != kind) {
+                        output.push_back(current + i);
                     }
                 }
             }
         }
         return output;
     }
+    const static vector<string> default_location;
 };
-
+const vector<string> Knight:: default_location = {"b1N","g1N","b8n","g8n"};
 
 
 #endif

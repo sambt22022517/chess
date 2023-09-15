@@ -2,7 +2,7 @@
 #define ROCK
 
 #include <bits/stdc++.h>
-#include "..\Utility\Utility.cpp"
+#include "..\Utility\Point.cpp"
 #include "ChessPiece.cpp"
 
 using namespace std;
@@ -26,26 +26,27 @@ public:
     }
     
     vector<Point> validMove() override {  
-        vector<Point> director = {E, S, W, N};
+        vector<Point> director = {Point::E, Point:: S, Point:: N, Point:: W};
         vector<Point> output;
         for(auto i: director){
-            Point current = coordinate;
-            while(Point::checkValid(current.get_i() + i.get_i(), current.get_j() + i.get_j())){
-                ChessPiece* c = dataBoard[current.get_i() + i.get_i()][current.get_j() + i.get_j()];
+            Point current = location;
+            while((current + i).isValid()){
+                ChessPiece* c = get_dataBoard(current + i);
                 if(c == nullptr){
-                    output.push_back(Point(current.get_i() + i.get_i(), current.get_j() + i.get_j()));
+                    output.push_back(current + i);
 
                 } else {
-                    if(c->getkind() != kind){
-                        output.push_back(Point(current.get_i() + i.get_i(), current.get_j() + i.get_j()));
+                    if(c->get_kind() != kind){
+                        output.push_back(current + i);
                     }
                     break;
                 }
-                current = output.back();
+                current = current + i;
             }
         }
         return output;
     }
+    const static vector<string> default_location;
 };
-
+const vector<string> Rock:: default_location = {"a1R","h1R","a8r","h8r"};
 #endif

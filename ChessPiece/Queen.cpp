@@ -2,7 +2,7 @@
 #define QUEEN
 
 #include <bits/stdc++.h>
-#include "..\Utility\Utility.cpp"
+#include "..\Utility\Point.cpp"
 #include "ChessPiece.cpp"
 
 using namespace std;
@@ -23,30 +23,40 @@ public:
             ChessPiece:: score = scoreQueen;
             ChessPiece:: kindPiece = 'Q';
         }
+
+        firstmove = true;
+        for(auto i: default_location){
+            if(i == start){
+                firstmove = false;
+                break;
+            }   
+        }
     }
     
     vector<Point> validMove() override {  
-        vector<Point> director = {EN, ES, WN, WS, E, W, S, N};
+        vector<Point> director = {Point::EN, Point::ES, Point::WN, Point::WS, Point::E, Point:: S, Point:: N, Point:: W};
         vector<Point> output;
         for(auto i: director){
-            Point current = coordinate;
-            while(Point::checkValid(current.get_i() + i.get_i(), current.get_j() + i.get_j())){
-                ChessPiece* c = dataBoard[current.get_i() + i.get_i()][current.get_j() + i.get_j()];
+            Point current = location;
+            while((current + i).isValid()){
+                ChessPiece* c = get_dataBoard(current + i);
+                
                 if(c == nullptr){
-                    output.push_back(Point(current.get_i() + i.get_i(), current.get_j() + i.get_j()));
+                    output.push_back(current + i);
 
                 }else{
-                    if(c->getkind() != kind){
-                        output.push_back(Point(current.get_i() + i.get_i(), current.get_j() + i.get_j()));
+                    if(c->get_kind() != kind){
+                        output.push_back(current + i);
                     }
                     break;
                 }
-                current = output.back();
+                current = current + i;
             }
         }
         return output;
     }
+    const static vector<string> default_location;
 };
-
+const vector<string> Queen:: default_location = {"d1Q", "d8q"};
 
 #endif
