@@ -8,9 +8,12 @@ CHÚ Ý: CÁC KÍ HIỆU:
     vua: k, K
     tượng: b, B
 
-QUAN TRỌNG: CẨN THẬN LÀM VIỆC VỚI CLASS "Null";
+QUAN TRỌNG:
             Không nên sử dụng hàm tạo cho các class liên quan đến chessPiece, thay vào đó hãy sử dụng hàm "creatPiece", VD: ChessPiece* c = creatPiece("a1P");
             trong đó "a1P" là vị trí của quân tốt trắng trên bàn cờ;
+
+Cách sử dụng các hàm:
+    
 
 Thêm hàm hủy vào class ChessPiece để giải phóng bộ nhớ;
 mỗi lần di chuyển phải cập nhật dataBoard(được khai báo ở cuối file chessPiece) và các biến;

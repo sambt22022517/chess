@@ -27,7 +27,7 @@ public:
     
     vector<Point> validMove() override{
         Point N, WN, EN;
-        if(kind == 'B'){
+        if(kind == 'W'){
             N = Point:: N;
             WN = Point:: WN;
             EN = Point:: EN;

@@ -34,7 +34,9 @@ int main(){
         "a8r"                  ,"e8k",            "h8r"
     };
 
-    ChessPiece::set_DataBoard(DataBoard(data_Board2));
+    
+    ChessPiece::set_DataBoard(DataBoard(data_Board));
+    displayBoard();
     ChessPiece::get_dataBoard(Point("e8k"))->validMove();
 
     // ChessPiece::get_dataBoard(Point("e8k"))->getRR()->first.location();
@@ -43,10 +45,22 @@ int main(){
     // Point p2 = p1 + Point::E + Point::E;
     // cout<< p1.location()<< " "<< p2.location();
     
-    ChessPiece::get_dataBoard(Point("e8k"))->move("c8ka8r", true);
+    // ChessPiece::get_dataBoard(Point("e8k"))->move("g8kh8r", true);
     // ChessPiece::get_dataBoard(Point("e8k"))->move("g8kh8r", true);
     // ChessPiece::get_dataBoard(Point("h8r"))->move("f8", true);
     // cout<< ChessPiece::get_dataBoard(Point("h8r"))->get_firstmove();
 
+    // ChessPiece::get_dataBoard(Point("c7p"))->move("c5p", true);
+    // ChessPiece::get_dataBoard(Point("d2P"))->move("d4P", true);
+    // ChessPiece::get_dataBoard(Point("c5p"))->move("d4P", true);
+
+    ChessPiece::get_dataBoard(Point("e1K"))->move("e4K", true);
+
     displayBoard();
+    // ChessPiece::get_dataBoard(Point("c5p"))->move("d4p", true);
+    for(auto i: ChessPiece::get_dataBoard(Point("e4K"))->validMove()){
+        cout<< i.location()<< " ";
+    }
+
+    // displayBoard();
 }

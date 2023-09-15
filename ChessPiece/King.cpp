@@ -90,7 +90,7 @@ public:
         return output;
     }
 
-    bool move(string end, bool valid) override{
+    bool move(string end, bool valid) override{//""
         
         ChessPiece:: move(end, valid);
 
