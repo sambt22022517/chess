@@ -7,7 +7,7 @@
 
 using namespace std;
 
-int scoreBishop = 3;
+const int scoreBishop = 3;
 
 class Bishop : public ChessPiece{
 public:
@@ -24,7 +24,7 @@ public:
         } 
 
         firstmove = true;
-        for(auto i: default_location){
+        for(auto i: default_location){ // Xem default_location tại dòng cuối file
             if(i == start){
                 firstmove = false;
                 break;
@@ -32,7 +32,8 @@ public:
         }
     }
 
-    vector<Point> validMove() override{  
+    vector<Point> validMove() override{
+        // Trả về một mảng các vị trí mà quân cờ có thể đi
         vector<Point> director = {Point::EN, Point::ES, Point::WN, Point::WS};
         vector<Point> output;
         for(auto i: director){
@@ -54,6 +55,7 @@ public:
         }
         return output;
     }
+
     const static vector<string> default_location;
 };
 const vector<string> Bishop:: default_location = {"c1B","f1B","c8b","f8b"};

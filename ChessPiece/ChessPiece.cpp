@@ -19,13 +19,13 @@ const char nullsquare = '.';
 
 class ChessPiece{
 protected:
-    Point location;// vị trí trên bàn cờ
-    int score;// diểm của quân cờ
-    bool firstmove;// kiểm tra đã đi nước đầu tiên hay chưa
-    char kind;// loại quân cờ trắng hay đen hay null
-    char kindPiece;//là quân cờ nào
-    static vector<vector<ChessPiece*>> dataBoard;
-    static bool isSetdataBoard;
+    Point location;         // Vị trí trên bàn cờ
+    int score;              // Điểm của quân cờ
+    bool firstmove;         // kiểm tra đã đi nước đầu tiên hay chưa
+    char kind;              // loại quân cờ trắng hay đen hay null
+    char kindPiece;         // là quân cờ nào
+    static vector<vector<ChessPiece*>> dataBoard; // mảng chứa dữ liệu của bàn cờ
+    static bool isSetdataBoard; // kiểm tra xem đã tạo bàn cờ chưa (?)
 public:
     ChessPiece(){}
     virtual ~ChessPiece(){}
@@ -37,14 +37,17 @@ public:
     }
 
     static ChessPiece* get_dataBoard(Point location) {
+        // Lấy dữ liệu về một ô trên bàn cờ, có quân hay không, quân bên nào...
         return dataBoard[location.get_x()][location.get_y()];
     }
 
     static vector<vector<ChessPiece*>> get_Board() {
+        // Trả về dữ liệu bàn cờ
         return dataBoard;
     }
 
     static void set_DataBoard(vector<vector<ChessPiece*>> _dataBoard){
+        // Cài đặt bàn cờ nếu chưa cài đặt
         if(isSetdataBoard) return;
 
         dataBoard = _dataBoard;
@@ -66,7 +69,8 @@ public:
             }
             if(!valid) return false;
         }
-            
+        
+        // Đánh dấu đã đi nước đầu tiên
         firstmove = true;
         Point pre_location = location;
         location = Point(end);

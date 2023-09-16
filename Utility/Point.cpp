@@ -11,8 +11,8 @@ using namespace std;
 
 class Point{
 private:
-    int x;
-    int y;
+    int x; // Đại diện cho hàng
+    int y; // Đại diện cho cột
 public:
     Point(){}
     
@@ -22,6 +22,7 @@ public:
     }
 
     Point(string location){
+    	// Lấy 2 kí tự đầu của string rồi chuyển thành dạng toạ độ (hàng, cột)
         x = location[1] - '0' - 1;
         y = location[0] - 'a';
     }
@@ -31,11 +32,13 @@ public:
     }
     
     string location(){
+    	// Trả về xâu chỉ vị trí. Ví dụ: c6, e5
         return string({(char)(y + 'a'), (char)(x + '0' + 1)});
     }
 
     // check valid for chess
     bool isValid(){
+    	// Kiểm tra điểm hiện tại có ở trong bàn cờ không
         if(!(x >= 0 && x <= 7)) return false;
         if(!(y >= 0 && y <= 7)) return false;
         return true;
@@ -45,13 +48,15 @@ public:
         return Point(x + other.x, y + other.y);
     }
 
-    int get_x() {return x;}
+    int get_x() {return x;} // Lấy giá trị vị trí hàng theo sau khi biến đổi
 
-    int get_y() {return y;}
+    int get_y() {return y;} // Lấy giá trị vị trí cột theo sau khi biến đổi
 
     static const Point WN, WS, EN, ES;
     static const Point W, E, N, S;
 };
+
+// Các hướng: W = West, E = East, N = North, S = South
 const Point Point:: WN(1, -1), Point::WS(-1, -1), Point::EN(1, 1), Point::ES(-1, 1);
 const Point Point::W(0, -1), Point::E(0, 1), Point::N(1, 0), Point::S(-1, 0);
 

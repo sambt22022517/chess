@@ -7,12 +7,12 @@
 
 using namespace std;
 
-int scoreKing = 1e9;
+const int scoreKing = 1e9;
 
 class King : public ChessPiece{
 private:
-    string Lcastling;
-    string Rcastling;
+    string Lcastling; // Nhập thành trái
+    string Rcastling; // Nhập thành phải
 public:
     King() : ChessPiece(){
         
@@ -28,7 +28,7 @@ public:
         }
 
         firstmove = true;
-        for(auto i: default_location){
+        for(auto i: default_location){ // Xem default_location tại dòng cuối file
             if(i == start){
                 firstmove = false;
                 break;
@@ -55,6 +55,7 @@ public:
             }
         }
 
+        // Làm gì đó để xử lí nhập thành
         if(firstmove == false){
             vector<Point> d = {Point::W, Point:: E};
             for(auto i: d){
@@ -87,25 +88,31 @@ public:
                 }
             }
         }
+
         return output;
     }
 
-    bool move(string end, bool valid) override{//""
+    bool move(string end, bool valid) override{
         
         ChessPiece:: move(end, valid);
 
         if(Lcastling != ""){
             if(Point(end) == Point(Lcastling)){
-                if(end.substr(3,3) != "" && end.substr(0,3) != "")
-                get_dataBoard(end.substr(3,3))->move((Point(end.substr(0,3)) + Point::E).location(), true);
-                else return false;
+                if(end.substr(3,3) != "" && end.substr(0,3) != ""){
+                    get_dataBoard(end.substr(3,3))->move((Point(end.substr(0,3)) + Point::E).location(), true);
+                } else {
+                    return false;
+                }
             }
         }
+
         if(Rcastling != ""){
             if(Point(end) == Point(Rcastling)){
-                if(end.substr(3,3) != "" && end.substr(0,3) != "")
-                get_dataBoard(end.substr(3,3))->move((Point(end.substr(0,3)) + Point::W).location(), true);
-                else return false;
+                if(end.substr(3,3) != "" && end.substr(0,3) != ""){
+                    get_dataBoard(end.substr(3,3))->move((Point(end.substr(0,3)) + Point::W).location(), true);
+                } else {
+                    return false;
+                }
             }
         }
 

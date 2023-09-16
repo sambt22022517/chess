@@ -7,7 +7,7 @@
 
 using namespace std;
 
-int scorePawn = 1;
+const int scorePawn = 1;
 
 class Pawn : public ChessPiece{
 public:
