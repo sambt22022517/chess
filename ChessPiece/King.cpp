@@ -56,24 +56,24 @@ public:
         }
 
         // Làm gì đó để xử lí nhập thành
-        if(firstmove == false){
+        if(firstmove == false){//vua chưa đi nước đầu 
             vector<Point> d = {Point::W, Point:: E};
             for(auto i: d){
                 Point current = location;
-                while((current + i).isValid()){
+                while((current + i).isValid()){//chạy cho đến khi gặp cột ở biên
                     current = current + i;
-                    if(!(current + i).isValid()){
-                        if(get_dataBoard(current) != nullptr){
-                            if(get_dataBoard(current) -> get_kind() == kind){
-                                if(get_dataBoard(current) -> get_kindPiece() == 'R' || get_dataBoard(current) -> get_kindPiece() == 'r'){
-                                    if(!get_dataBoard(current)->get_firstmove()){
+                    if(!(current + i).isValid()){//ô ở ngoài cùng
+                        if(get_dataBoard(current) != nullptr){//ô không rỗng
+                            if(get_dataBoard(current) -> get_kind() == kind){//quân cờ ở ô này cùng loại với vua
+                                if(get_dataBoard(current) -> get_kindPiece() == 'R' || get_dataBoard(current) -> get_kindPiece() == 'r'){//quân này là quân xe
+                                    if(!get_dataBoard(current)->get_firstmove()){//quân xe này chưa đi nước đầu tiên
                                         output.push_back(location + i + i);
 
-                                        if(i == Point::W){
+                                        if(i == Point::W){//nhập thành về bên trái
                                             Lcastling = (location + i + i).location() + kindPiece +
                                                         current.location() + get_dataBoard(current) -> get_kindPiece();
                                                         
-                                        }else{
+                                        }else{//nhập thành về bên phải
                                             Rcastling = (location + i + i).location() + kindPiece +
                                                         current.location() + get_dataBoard(current) -> get_kindPiece();
                                                         
