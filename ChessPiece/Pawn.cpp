@@ -40,17 +40,17 @@ public:
         vector<Point> output;
         Point current = location;
         
-        if(get_dataBoard(current + N) == nullptr){
+        if((current + N).isValid() and get_dataBoard(current + N) == nullptr){
             output.push_back(current + N);
         }
         
-        if(!firstmove && get_dataBoard(current + N + N) == nullptr){
+        if((current + N + N).isValid() and !firstmove && get_dataBoard(current + N + N) == nullptr){
             output.push_back(current + N + N);
         }
 
         vector<Point> d = {WN, EN};
         for(auto i: d){
-            if(get_dataBoard(current + i) != nullptr){
+            if((current + i).isValid() and get_dataBoard(current + i) != nullptr){
                 if(get_dataBoard(current + i)->get_kind() != kind){
                     output.push_back(current + i);
                 }
@@ -58,7 +58,6 @@ public:
         }
 
         // bắt tốt qua đường
-
 
         
 

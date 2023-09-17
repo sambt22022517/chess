@@ -63,12 +63,7 @@ public:
     virtual bool move(string end, bool valid){
         // kiểm tra nước đi có hợp lệ ko, nếu ko trả về false
         // di chuyển quân cờ tới ô hợp lệ
-        if(!valid){
-            for(auto i: validMove()){
-                if(i == Point(end)) valid = true;
-            }
-            if(!valid) return false;
-        }
+        if (not valid) return false;
         
         // Đánh dấu đã đi nước đầu tiên
         firstmove = true;

@@ -9,8 +9,10 @@ using namespace std;
 void displayBoard(){
     // In bàn cờ ra màn hình console
     // Đây là hàm tiền thân của hệ thống đồ hoạ (nếu có thời gian phát triển)
+    std::cout << std::endl << std::endl;
 
     for(int i = 7; i >= 0; i--){
+        std::cout << i+1 << " | ";
         for(int j = 0; j < 8; j++){
 
             if(ChessPiece::get_dataBoard(Point(i,j)) != nullptr) {
@@ -22,6 +24,8 @@ void displayBoard(){
         }
         cout << endl;
     }
+    std::cout << "  +-----------------" << endl << "    a b c d e f g h";
+
     cout << endl << endl;
 
 
