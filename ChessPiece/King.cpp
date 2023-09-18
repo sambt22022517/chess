@@ -11,115 +11,141 @@ const int scoreKing = 1e9;
 
 class King : public ChessPiece{
 private:
-    string Lcastling; // Nhập thành trái
-    string Rcastling; // Nhập thành phải
+	string Lcastling; // Nhập thành trái
+	string Rcastling; // Nhập thành phải
 public:
-    King() : ChessPiece(){
-        
-    }
-    King(char kind, string start) : ChessPiece(kind, start){
-        if(kind == 'B'){
-            ChessPiece:: score = -scoreKing;
-            ChessPiece:: kindPiece = 'k';
-        } 
-        else{
-            ChessPiece:: score = scoreKing;
-            ChessPiece:: kindPiece = 'K';
-        }
+	King() : ChessPiece(){
+		
+	}
+	King(char kind, string start) : ChessPiece(kind, start){
+		if(kind == 'B'){
+			ChessPiece:: score = -scoreKing;
+			ChessPiece:: kindPiece = 'k';
+		} 
+		else{
+			ChessPiece:: score = scoreKing;
+			ChessPiece:: kindPiece = 'K';
+		}
 
-        firstmove = true;
-        for(auto i: default_location){ // Xem default_location tại dòng cuối file
-            if(i == start){
-                firstmove = false;
-                break;
-            }   
-        }
-        Lcastling = "";
-        Rcastling = "";
-    }
+		firstmove = true;
+		for(auto i: default_location){ // Xem default_location tại dòng cuối file
+			if(i == start){
+				firstmove = false;
+				break;
+			}   
+		}
+		Lcastling = "";
+		Rcastling = "";
+	}
 
-    vector<Point> validMove() override {  
-        vector<Point> director = {Point::EN, Point::ES, Point::WN, Point::WS, Point::E, Point:: S, Point:: N, Point:: W};
-        vector<Point> output;
-        Point current = location;
-        for(auto i: director){
-            if ((current + i).isValid()){
-                ChessPiece* c = get_dataBoard(current + i);
-                if(c == nullptr){
-                    output.push_back(current + i);
-                } else {
-                    if (c->get_kind() != kind) {
-                        output.push_back(current + i);
-                    }
-                }
-            }
-        }
+	vector<Point> validMove(bool my_turn = true) override {  
+		vector<Point> director = {Point::EN, Point::ES, Point::WN, Point::WS, Point::E, Point:: S, Point:: N, Point:: W};
+		vector<Point> output;
+		Point current = location;
+		for(auto i: director){
+			if ((current + i).isValid()){
+				ChessPiece* c = get_dataBoard(current + i);
+				if(c == nullptr){
+					output.push_back(current + i);
+				} else {
+					if (c->get_kind() != kind) {
+						output.push_back(current + i);
+					}
+				}
+			}
+		}
 
-        // Làm gì đó để xử lí nhập thành
-        if(firstmove == false){//vua chưa đi nước đầu 
-            vector<Point> d = {Point::W, Point:: E};
-            for(auto i: d){
-                Point current = location;
-                while((current + i).isValid()){//chạy cho đến khi gặp cột ở biên
-                    current = current + i;
-                    if(!(current + i).isValid()){//ô ở ngoài cùng
-                        if(get_dataBoard(current) != nullptr){//ô không rỗng
-                            if(get_dataBoard(current) -> get_kind() == kind){//quân cờ ở ô này cùng loại với vua
-                                if(get_dataBoard(current) -> get_kindPiece() == 'R' || get_dataBoard(current) -> get_kindPiece() == 'r'){//quân này là quân xe
-                                    if(!get_dataBoard(current)->get_firstmove()){//quân xe này chưa đi nước đầu tiên
-                                        output.push_back(location + i + i);
+		// Làm gì đó để xử lí nhập thành
+		if(firstmove == false){//vua chưa đi nước đầu 
+			vector<Point> d = {Point::W, Point:: E};
+			for(auto i: d){
+				Point current = location;
+				while((current + i).isValid()){//chạy cho đến khi gặp cột ở biên
+					current = current + i;
+					if(!(current + i).isValid()){//ô ở ngoài cùng
+						if(get_dataBoard(current) != nullptr){//ô không rỗng
+							if(get_dataBoard(current) -> get_kind() == kind){//quân cờ ở ô này cùng loại với vua
+								if(get_dataBoard(current) -> get_kindPiece() == 'R' || get_dataBoard(current) -> get_kindPiece() == 'r'){//quân này là quân xe
+									if(!get_dataBoard(current)->get_firstmove()){//quân xe này chưa đi nước đầu tiên
+										output.push_back(location + i + i);
 
-                                        if(i == Point::W){//nhập thành về bên trái
-                                            Lcastling = (location + i + i).location() + kindPiece +
-                                                        current.location() + get_dataBoard(current) -> get_kindPiece();
-                                                        
-                                        }else{//nhập thành về bên phải
-                                            Rcastling = (location + i + i).location() + kindPiece +
-                                                        current.location() + get_dataBoard(current) -> get_kindPiece();
-                                                        
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
+										if(i == Point::W){//nhập thành về bên trái
+											Lcastling = (location + i + i).location() + kindPiece +
+														current.location() + get_dataBoard(current) -> get_kindPiece();
+														
+										}else{//nhập thành về bên phải
+											Rcastling = (location + i + i).location() + kindPiece +
+														current.location() + get_dataBoard(current) -> get_kindPiece();
+														
+										}
+									}
+								}
+							}
+						}
+					}
 
-                    if(get_dataBoard(current) != nullptr) break;
-                }
-            }
-        }
+					if(get_dataBoard(current) != nullptr) break;
+				}
+			}
+		}
 
-        return output;
-    }
+		// Nếu không phải lượt đi của mình thì trả về ouput luôn
+		if (not my_turn) return output;
 
-    bool move(string end, bool valid) override{
-        
-        ChessPiece:: move(end, valid);
+		// Nếu đang là lượt đi của mình thì phải kiểm tra để
+		// loại bỏ những nước đi của vua mà nếu đi vào sẽ chết ngay
+		std::vector<Point> not_valid_moves;
+		for (int i = 0; i < 8; i += 1){
+			for (int j = 0; j < 8; j += 1){
+				ChessPiece * cp = ChessPiece::get_dataBoard(Point(i, j));
+				if (cp != nullptr and cp->get_kind() != this->kind){
+					for (Point p : cp->validMove(false)){
+						not_valid_moves.push_back(p);
+					}
+				}
+			}
+		}
+		for (int i = output.size()-1; i > -1; i -= 1){
+			for (Point nvm : not_valid_moves){
+				if (output[i] == nvm){
+					output.erase(output.begin() + i);
+					break;
+				}
+			}
+		}
 
-        if(Lcastling != ""){
-            if(Point(end) == Point(Lcastling)){
-                if(end.substr(3,3) != "" && end.substr(0,3) != ""){
-                    get_dataBoard(end.substr(3,3))->move((Point(end.substr(0,3)) + Point::E).location(), true);
-                } else {
-                    return false;
-                }
-            }
-        }
+		return output;
+	}
 
-        if(Rcastling != ""){
-            if(Point(end) == Point(Rcastling)){
-                if(end.substr(3,3) != "" && end.substr(0,3) != ""){
-                    get_dataBoard(end.substr(3,3))->move((Point(end.substr(0,3)) + Point::W).location(), true);
-                } else {
-                    return false;
-                }
-            }
-        }
+	bool move(string end, bool valid) override {
+		if (not valid) return false;
+		
+		ChessPiece:: move(end, valid);
 
-        return true;
-    }
+		if(Lcastling != ""){
+			if(Point(end) == Point(Lcastling)){
+				if(end.substr(3,3) != "" && end.substr(0,3) != ""){
+					get_dataBoard(end.substr(3,3))->move((Point(end.substr(0,3)) + Point::E).location(), true);
+				} else {
+					return false;
+				}
+			}
+		}
 
-    const static vector<string> default_location;
+		if(Rcastling != ""){
+			if(Point(end) == Point(Rcastling)){
+				if(end.substr(3,3) != "" && end.substr(0,3) != ""){
+					get_dataBoard(end.substr(3,3))->move((Point(end.substr(0,3)) + Point::W).location(), true);
+				} else {
+					return false;
+				}
+			}
+		}
+
+		return true;
+	}
+
+	const static vector<string> default_location;
 };
 const vector<string> King:: default_location = {"e1K","e8k"};
 
