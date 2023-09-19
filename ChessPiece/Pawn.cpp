@@ -4,6 +4,7 @@
 #include <bits/stdc++.h>
 #include "..\Utility\Point.cpp"
 #include "ChessPiece.cpp"
+#include "Queen.cpp"
 
 using namespace std;
 
@@ -44,7 +45,7 @@ public:
             output.push_back(current + N);
         }
         
-        if((current + N + N).isValid() and !firstmove && get_dataBoard(current + N + N) == nullptr){
+        if((current + N + N).isValid() and !firstmove && get_dataBoard(current + N + N) == nullptr && get_dataBoard(current + N) == nullptr){
             output.push_back(current + N + N);
         }
 
@@ -59,9 +60,36 @@ public:
 
         // bắt tốt qua đường
 
+        // phong quân:
         
 
         return output;
+    }
+    bool move(string end, bool valid) override{
+        // cout<< "hi";
+        ChessPiece:: move(end, valid);
+        // cout<< "hello";
+        Point N, WN, EN;
+        if(kind == 'W'){
+            N = Point:: N;
+            WN = Point:: WN;
+            EN = Point:: EN;
+        }else{
+            N = Point:: S;
+            WN = Point:: WS;
+            EN = Point:: ES;
+        }
+        Point current = location;
+
+        if(!(current + N).isValid()){
+            int x = Point(location).get_x(), y = Point(location).get_y();
+            char _kind = kind;
+
+            delete(dataBoard[x][y]);
+
+            dataBoard[x][y] = new Queen(_kind, Point(x, y).location());
+        }
+        return true;
     }
     const static vector<string> default_location;
 };
