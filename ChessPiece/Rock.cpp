@@ -25,7 +25,7 @@ public:
         }
     }
     
-    vector<Point> validMove() override {  
+    vector<Point> validMove(bool my_turn = true) override {  
         vector<Point> director = {Point::E, Point:: S, Point:: N, Point:: W};
         vector<Point> output;
         for(auto i: director){

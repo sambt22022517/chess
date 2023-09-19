@@ -32,7 +32,7 @@ public:
         }
     }
 
-    vector<Point> validMove() override{
+    vector<Point> validMove(bool my_turn = true) override{
         // Trả về một mảng các vị trí mà quân cờ có thể đi
         vector<Point> director = {Point::EN, Point::ES, Point::WN, Point::WS};
         vector<Point> output;

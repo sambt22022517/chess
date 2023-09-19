@@ -26,7 +26,7 @@ public:
         }
     }
     
-    vector<Point> validMove() override{
+    vector<Point> validMove(bool my_turn = true) override{
         Point N, WN, EN;
         if(kind == 'W'){
             N = Point:: N;

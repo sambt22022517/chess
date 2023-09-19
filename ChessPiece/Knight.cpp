@@ -33,7 +33,7 @@ public:
         }
     }
 
-    vector<Point> validMove() override {  
+    vector<Point> validMove(bool my_turn = true) override {  
         vector<Point> director = {Point(2, 1), Point(1, 2), 
                                   Point(2, -1), Point(1, -2), 
                                   Point(-2, 1), Point(-1, 2), 
