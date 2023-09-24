@@ -91,6 +91,9 @@ public:
         }
         return true;
     }
+    string get_kindpiecestring() override{
+        return "pawn";
+    }
     const static vector<string> default_location;
 };
 

@@ -55,6 +55,9 @@ public:
         }
         return output;
     }
+    string get_kindpiecestring() override{
+        return "bishop";
+    }
 
     const static vector<string> default_location;
 };

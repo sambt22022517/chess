@@ -4,7 +4,7 @@
             "name": "windows-gcc-x64",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${workspaceFolder}"
+                "./SFML-2.5.1"
             ],
             "compilerPath": "C:/TDM-GCC-64/bin/gcc.exe",
             "cStandard": "${default}",

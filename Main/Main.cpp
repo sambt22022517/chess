@@ -35,11 +35,11 @@ int main(){
     };
 
     vector<string> data_Board3 = {
-        "d2p"
+        "d7P"
     };
     ChessPiece::set_DataBoard(DataBoard(data_Board3));
     displayBoard();
-    ChessPiece::get_dataBoard(Point("d2p"))->validMove();
+    ChessPiece::get_dataBoard(Point("d7P"))->validMove();
 
     // ChessPiece::get_dataBoard(Point("e8k"))->getRR()->first.location();
 
@@ -56,7 +56,7 @@ int main(){
     // ChessPiece::get_dataBoard(Point("d2P"))->move("d4P", true);
     // ChessPiece::get_dataBoard(Point("c5p"))->move("d4P", true);
 
-    ChessPiece::get_dataBoard(Point("d2p"))->move("d1p", true);
+    ChessPiece::get_dataBoard(Point("d7P"))->move("d8P", true);
 
     displayBoard();
     // ChessPiece::get_dataBoard(Point("c5p"))->move("d4p", true);

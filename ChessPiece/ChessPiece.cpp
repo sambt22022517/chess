@@ -94,6 +94,10 @@ public:
         return kind;
     }
 
+    virtual string get_kindpiecestring(){
+        return "";
+    }
+
     Point get_location() const{
         return location;
     }

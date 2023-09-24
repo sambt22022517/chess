@@ -46,6 +46,9 @@ public:
         }
         return output;
     }
+    string get_kindpiecestring() override{
+        return "rock";
+    }
     const static vector<string> default_location;
 };
 const vector<string> Rock:: default_location = {"a1R","h1R","a8r","h8r"};

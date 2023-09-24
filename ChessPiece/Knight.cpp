@@ -54,6 +54,9 @@ public:
         }
         return output;
     }
+    string get_kindpiecestring() override{
+        return "knight";
+    }
     const static vector<string> default_location;
 };
 const vector<string> Knight:: default_location = {"b1N","g1N","b8n","g8n"};

@@ -55,6 +55,9 @@ public:
         }
         return output;
     }
+    string get_kindpiecestring() override{
+        return "queen";
+    }
     const static vector<string> default_location;
 };
 const vector<string> Queen:: default_location = {"d1Q", "d8q"};

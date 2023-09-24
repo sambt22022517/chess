@@ -144,7 +144,9 @@ public:
 
 		return true;
 	}
-
+	string get_kindpiecestring() override{
+        return "king";
+    }
 	const static vector<string> default_location;
 };
 const vector<string> King:: default_location = {"e1K","e8k"};

@@ -1,4 +1,5 @@
 # ChessProject
+Chạy makefile thì phải cd đến graphic
 CHÚ Ý: CÁC KÍ HIỆU:
     viết hoa đại diện cho quân trắng(W), viết thường đại diện cho quân đen(B)
     tốt: p, P
