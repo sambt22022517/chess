@@ -43,9 +43,10 @@ public:
                     
                     Sprite spritepiece(piece);
                     spritepiece.scale(sf::Vector2f((float)h_window/8/size.x, (float)h_window/8/size.y));
-
-                    int x = j->get_location().get_x(), y = j->get_location().get_y();
-                    spritepiece.setPosition(y * h_window / 8,x * w_window / 8);
+                    
+                    Point point = j->get_location().getPoint_WNorigin();
+                    int x = point.get_x(), y = point.get_y();
+                    spritepiece.setPosition(x * w_window / 8,y * h_window / 8);
                     window->draw(spritepiece);
                 }
             }
