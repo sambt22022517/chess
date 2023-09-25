@@ -39,7 +39,11 @@ public:
             for(auto j: i){
                 if(j != NULL){
                     Texture piece = get_image(j);
+                    Vector2u size = piece.getSize();
+                    
                     Sprite spritepiece(piece);
+                    spritepiece.scale(sf::Vector2f((float)h_window/8/size.x, (float)h_window/8/size.y));
+
                     int x = j->get_location().get_x(), y = j->get_location().get_y();
                     spritepiece.setPosition(y * h_window / 8,x * w_window / 8);
                     window->draw(spritepiece);
