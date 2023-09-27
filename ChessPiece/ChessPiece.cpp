@@ -150,7 +150,7 @@ Giả sử có bàn cờ như sau:
   +-----------------
     a b c d e f g h
 
-Khi này, checkMoves của b (tượng đen) sẽ bao gồm các ô: e4(vị trí hiện tại), d5, c6, b7.
+Khi này, checkMoves của b (tượng đen) sẽ bao gồm các ô: e4(vị trí hiện tại), d5, c6, b7, a8.
 Tất cả các ô hợp lại thành một đường các ô khi tượng đen đang chiếu vua trắng.
 
 */
