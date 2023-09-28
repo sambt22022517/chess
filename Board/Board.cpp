@@ -20,7 +20,6 @@ void displayBoard(){
             } else {
                 cout << ". ";
             }
-
         }
         cout << endl;
     }
