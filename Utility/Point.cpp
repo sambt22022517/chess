@@ -48,6 +48,10 @@ public:
         return Point(x + other.x, y + other.y);
     }
 
+    Point getPoint_WNorigin(){
+        return Point(y, 7-x);
+    }
+
     int get_x() {return x;} // Lấy giá trị vị trí hàng theo sau khi biến đổi
 
     int get_y() {return y;} // Lấy giá trị vị trí cột theo sau khi biến đổi

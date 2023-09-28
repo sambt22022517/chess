@@ -22,16 +22,16 @@ class GAME{
 		};
 
 		vector<string> data_board2 = {
-		"a1.","b1.","c1.","d1Q","e1.","f1K","g1.","h1.",
+		"a1.","b1.","c1.","d1.","e1.","f1.","g1.","h1.",
 		"a2.","b2.","c2.","d2.","e2.","f2.","g2.","h2.",
 
-		"a3.","b3.","c3.","d3.","e3.","f3.","g3.","h3.",
-		"a4.","b4.","c4.","d4.","e4.","f4.","g4.","h4.",
-		"a5.","b5.","c5.","d5.","e5.","f5.","g5.","h5.",
+		"a3.","b3.","c3.","d3.","e3k","f3.","g3.","h3.",
+		"a4.","b4.","c4.","d4.","e4b","f4.","g4.","h4.",
+		"a5.","b5.","c5.","d5K","e5.","f5R","g5.","h5.",
 		"a6.","b6.","c6.","d6.","e6.","f6.","g6.","h6.",
 
 		"a7.","b7.","c7.","d7.","e7.","f7.","g7.","h7.",
-		"a8.","b8.","c8.","d8k","e8q","f8.","g8.","h8."
+		"a8.","b8.","c8.","d8.","e8.","f8.","g8.","h8."
     	};
 
 		string introduce = "This chess game is just for ...\nType your moving by this fomat:\n\n<curr_col><curr_row> <next_col><next_row>.\n\nGood luck!\n\n";
@@ -60,12 +60,38 @@ class GAME{
 				if (curr_pos == "exit"){
 					break;
 				}
+				ChessPiece * cp = ChessPiece::get_dataBoard(Point(curr_pos));
 
+				// Kiểm tra xem hiện có đang bị chiếu không
+				// Nếu có thì xác định những quân cờ đối phương đang chiếu mình
+				bool test = true;
+				ChessPiece* check1 = NULL, *check2 = NULL;
+				for (int i = 0; i < 8 and test; i += 1){
+					for (int j = 0; j < 8 and test; j += 1){
+						ChessPiece * op = ChessPiece::get_dataBoard(Point(i, j)); // opponent
+						if (op != nullptr and op->get_kind() != cp->get_kind()){
+							op->calValidMove();
+							if (op->get_check_moves().size() > 0){
+								if (not check1) check1 = op;
+								else {
+									check2 = op;
+									test = false;
+								}
+							}
+						}
+					}
+				}
+
+				// Tính toán nước đi hợp lệ của quân cờ đang chọn
 				// Kiểm tra xem next_pos có hợp lệ không:
 				// Nếu có: Di chuyển -> Đổi lượt
 				// Nếu không: Chọn lại
-				ChessPiece * cp = ChessPiece::get_dataBoard(Point(curr_pos));
-				std::vector<Point> valid_moves = cp->validMove();
+				if (check2) cp->calValidMove({check1, check2});
+				else if (check1) cp->calValidMove({check1});
+				else cp->calValidMove();
+				std::vector<Point> valid_moves = cp->get_valid_moves();
+
+				for (Point i : valid_moves) std::cout << i.location() << ' ';
 
 				bool valid_player = not (bool)(white_turn ^ (cp->get_kind() == 'W'));
 				for (Point i : valid_moves){
@@ -83,14 +109,6 @@ class GAME{
 int main(){
 	GAME chess;
 	chess.RUN();
-
-	// bool a = true;
-	// bool b = true;
-	// bool c = ~(a^b);
-	// std::cout << c;
-	// for (int i = 0; i < 8; i += 1){
-	// 	std::cout << i;
-	// }
 
 	return 0;
 }
