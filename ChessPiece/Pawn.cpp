@@ -103,6 +103,7 @@ public:
 	}
 	bool move(string end, bool valid) override{
 		ChessPiece:: move(end, valid);
+		if (not valid) return false;
 		Point N, WN, EN;
 		if(kind == 'W'){
 			N = Point:: N;

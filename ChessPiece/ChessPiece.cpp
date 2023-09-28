@@ -72,6 +72,7 @@ public:
 		firstmove = true;
 		Point pre_location = location;
 		location = Point(end);
+		std::cout << 1;
 
 		// xóa quân cờ ở ô cần đến(nếu có)
 		if(get_dataBoard(location) != nullptr){

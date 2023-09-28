@@ -38,7 +38,7 @@ class GAME{
 
 	public:
 		GAME(){
-			ChessPiece::set_DataBoard(DataBoard(data_board2));
+			ChessPiece::set_DataBoard(DataBoard(data_board));
 			std::cout << this->introduce;
 			displayBoard();
 		}
@@ -61,6 +61,7 @@ class GAME{
 					break;
 				}
 				ChessPiece * cp = ChessPiece::get_dataBoard(Point(curr_pos));
+				if (cp == nullptr) continue;
 
 				// Kiểm tra xem hiện có đang bị chiếu không
 				// Nếu có thì xác định những quân cờ đối phương đang chiếu mình
@@ -71,7 +72,7 @@ class GAME{
 						ChessPiece * op = ChessPiece::get_dataBoard(Point(i, j)); // opponent
 						if (op != nullptr and op->get_kind() != cp->get_kind()){
 							op->calValidMove();
-							if (op->get_check_moves().size() > 0){
+							if (op->get_check_moves().size() > 1){
 								if (not check1) check1 = op;
 								else {
 									check2 = op;
@@ -86,6 +87,7 @@ class GAME{
 				// Kiểm tra xem next_pos có hợp lệ không:
 				// Nếu có: Di chuyển -> Đổi lượt
 				// Nếu không: Chọn lại
+				// std::cout << check2 << check1;
 				if (check2) cp->calValidMove({check1, check2});
 				else if (check1) cp->calValidMove({check1});
 				else cp->calValidMove();
