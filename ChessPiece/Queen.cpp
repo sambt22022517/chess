@@ -76,6 +76,10 @@ public:
 			}
 		}
 
+		if (not getKing) {
+			this->checkMoves.clear();
+		}
+
 		if (checks.size() == 2){
 			this->validMoves.clear();
 		} else if (checks.size() == 1){

@@ -101,8 +101,10 @@ public:
 				ChessPiece * cp = ChessPiece::get_dataBoard(Point(i, j));
 				if (cp != nullptr and cp->get_kind() != this->kind){
 					if (cp->get_kindpiecestring() != "king"){
-						for (Point p : cp->get_valid_moves()){
-							not_valid_moves.push_back(p);
+						if (cp->get_kindpiecestring() != "pawn"){
+							for (Point p : cp->get_valid_moves()){
+								not_valid_moves.push_back(p);
+							}
 						}
 						for (Point p : cp->get_protect_point()){
 							not_valid_moves.push_back(p);

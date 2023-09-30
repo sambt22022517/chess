@@ -57,17 +57,18 @@ public:
 
 		vector<Point> d = {WN, EN};
 		for(auto i: d){
-			if((current + i).isValid() and get_dataBoard(current + i) != nullptr){
-				ChessPiece * c = get_dataBoard(current + i);
-				if(c->get_kind() != kind){
-					this->validMoves.push_back(current + i);
+			if((current + i).isValid()){
+				this->protectPoints.push_back(current + i);
+				if (get_dataBoard(current + i) != nullptr){
+					ChessPiece * c = get_dataBoard(current + i);
+					if(c->get_kind() != kind){
+						this->validMoves.push_back(current + i);
 
-					if (c->get_kindpiecestring() == "king"){
-						this->checkMoves.push_back(current + i);
-						getKing = true;
+						if (c->get_kindpiecestring() == "king"){
+							this->checkMoves.push_back(current + i);
+							getKing = true;
+						}
 					}
-				} else {
-					this->protectPoints.push_back(current + i);
 				}
 			}
 
@@ -75,6 +76,10 @@ public:
 				this->checkMoves.clear();
 				this->checkMoves.push_back(this->location);
 			}
+		}
+
+		if (not getKing) {
+			this->checkMoves.clear();
 		}
 
 		if (checks.size() == 2){

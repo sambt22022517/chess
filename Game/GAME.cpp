@@ -136,7 +136,7 @@ public:
 			// Nếu có: Di chuyển -> Đổi lượt
 			// Nếu không: Chọn lại
 			// std::cout << check2 << check1;
-			std::cout << white_turn << ' ' << check1 << ' ' << check2 << std::endl;
+			std::cout << (white_turn ? "white_turn\n" : "black_turn\n");
 			if (check2)
 				cp->calValidMove({check1, check2});
 			else if (check1)
