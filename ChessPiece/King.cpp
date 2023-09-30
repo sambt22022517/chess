@@ -100,14 +100,26 @@ public:
 			for (int j = 0; j < 8; j += 1){
 				ChessPiece * cp = ChessPiece::get_dataBoard(Point(i, j));
 				if (cp != nullptr and cp->get_kind() != this->kind){
-					for (Point p : cp->get_valid_moves()){
-						not_valid_moves.push_back(p);
-					}
-					for (Point p : cp->get_protect_point()){
-						not_valid_moves.push_back(p);
-					}
-					for (Point p : cp->get_check_moves()){
-						not_valid_moves.push_back(p);
+					if (cp->get_kindpiecestring() != "king"){
+						for (Point p : cp->get_valid_moves()){
+							not_valid_moves.push_back(p);
+						}
+						for (Point p : cp->get_protect_point()){
+							not_valid_moves.push_back(p);
+						}
+						for (Point p : cp->get_check_moves()){
+							not_valid_moves.push_back(p);
+						}
+					} else {
+						Point p = Point(i, j);
+						not_valid_moves.push_back(p + Point::EN);
+						not_valid_moves.push_back(p + Point::ES);
+						not_valid_moves.push_back(p + Point::WN);
+						not_valid_moves.push_back(p + Point::WS);
+						not_valid_moves.push_back(p + Point::W);
+						not_valid_moves.push_back(p + Point::N);
+						not_valid_moves.push_back(p + Point::S);
+						not_valid_moves.push_back(p + Point::E);
 					}
 				}
 			}
@@ -130,21 +142,17 @@ public:
 
 		if(Lcastling != ""){
 			if(Point(end) == Point(Lcastling)){
-				if(end.substr(3,3) != "" && end.substr(0,3) != ""){
-					get_dataBoard(end.substr(3,3))->move((Point(end.substr(0,3)) + Point::E).location(), true);
-				} else {
-					return false;
-				}
+				get_dataBoard(Point(Lcastling.substr(3,3)))->move((Point(Lcastling.substr(0,3)) + Point::E).location(), true);
+			} else {
+				return false;
 			}
 		}
 
 		if(Rcastling != ""){
 			if(Point(end) == Point(Rcastling)){
-				if(end.substr(3,3) != "" && end.substr(0,3) != ""){
-					get_dataBoard(end.substr(3,3))->move((Point(end.substr(0,3)) + Point::W).location(), true);
-				} else {
-					return false;
-				}
+				get_dataBoard(Point(Rcastling.substr(3,3)))->move((Point(Rcastling.substr(0,3)) + Point::W).location(), true);
+			} else {
+				return false;
 			}
 		}
 

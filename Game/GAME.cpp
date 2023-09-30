@@ -37,18 +37,20 @@ private:
 	string introduce = "This chess game is just for ...\nType your moving by this fomat:\n\n<curr_col><curr_row> <next_col><next_row>.\n\nGood luck!\n\n";
 	sf::Vector2i mousePos; // lấy vị trí của chuột
 	bool click = false;	   // kiểm tra đã nhấn chọn ô hay chưa
+
 public:
 	GAME()
 	{
 		ChessPiece::set_DataBoard(DataBoard(data_board));
-		std::cout << this->introduce;
-		displayBoard();
+		// std::cout << this->introduce;
+		// displayBoard();
 	}
 
 	void RUN()
 	{
 		sf::RenderWindow *window = new RenderWindow(sf::VideoMode(712, 712), "Chess");
 		Graphic g(window);
+
 		// chạy tính toán game
 		bool white_turn = true;
 		string curr_pos = "", next_pos = "";
@@ -65,7 +67,7 @@ public:
 					window->close();
 				}
 
-				if (event.type == sf::Event::MouseButtonReleased)
+				else if (event.type == sf::Event::MouseButtonReleased)
 				{
 					if (event.mouseButton.button == sf::Mouse::Left)
 					{
@@ -73,10 +75,12 @@ public:
 						this->mousePos = sf::Mouse::getPosition(*window);
 						this->mousePos.x = (int)(this->mousePos.x * 8) / (window->getSize().x);
 						this->mousePos.y = ((int)(window->getSize().y - (this->mousePos.y)) * 8) / (window->getSize().y);
-						sf::sleep(sf::seconds(0.3)); // sleep 0.3 giây
+						// sf::sleep(sf::seconds(0.3)); // sleep 0.3 giây
 						this->click = true;
 					}
 				}
+
+				// else if 
 			}
 
 			// kiểm tra chọn quân cờ và nước đi
@@ -132,6 +136,7 @@ public:
 			// Nếu có: Di chuyển -> Đổi lượt
 			// Nếu không: Chọn lại
 			// std::cout << check2 << check1;
+			std::cout << white_turn << ' ' << check1 << ' ' << check2 << std::endl;
 			if (check2)
 				cp->calValidMove({check1, check2});
 			else if (check1)
@@ -140,10 +145,10 @@ public:
 				cp->calValidMove();
 			std::vector<Point> valid_moves = cp->get_valid_moves();
 
-			for (Point i : valid_moves)
-				std::cout << i.location() << ' ';
+			// for (Point i : valid_moves)
+			// 	std::cout << i.location() << ' ';
 
-			bool valid_player = not(bool)(white_turn ^ (cp->get_kind() == 'W'));
+			bool valid_player = not (bool)(white_turn ^ (cp->get_kind() == 'W'));
 			for (Point i : valid_moves)
 			{
 				if (cp->move(next_pos, (valid_player and next_pos == i.location())))
