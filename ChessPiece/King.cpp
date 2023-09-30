@@ -137,16 +137,16 @@ public:
 
 	}
 
-	bool move(string end, bool valid) override {
-		if (not valid) return false;
+	ChessPiece* move(string end, bool valid) override {
+		if (not valid) return nullptr;
 		
-		ChessPiece:: move(end, valid);
+		ChessPiece* c = ChessPiece:: move(end, valid);
 
 		if(Lcastling != ""){
 			if(Point(end) == Point(Lcastling)){
 				get_dataBoard(Point(Lcastling.substr(3,3)))->move((Point(Lcastling.substr(0,3)) + Point::E).location(), true);
 			} else {
-				return false;
+				return nullptr;
 			}
 		}
 
@@ -154,11 +154,11 @@ public:
 			if(Point(end) == Point(Rcastling)){
 				get_dataBoard(Point(Rcastling.substr(3,3)))->move((Point(Rcastling.substr(0,3)) + Point::W).location(), true);
 			} else {
-				return false;
+				return nullptr;
 			}
 		}
 
-		return true;
+		return c;
 	}
 
 	string get_kindpiecestring() override{

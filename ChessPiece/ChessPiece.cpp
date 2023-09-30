@@ -18,7 +18,7 @@ using namespace std;
 const char nullsquare = '.';
 
 class ChessPiece{
-protected:
+public:
 	Point location;         // Vị trí trên bàn cờ
 	int score;              // Điểm của quân cờ
 	bool firstmove;         // kiểm tra đã đi nước đầu tiên hay chưa
@@ -63,10 +63,10 @@ public:
 	// trả về một chuỗi các điểm mà quân cờ có thể đi tới
 	virtual void calValidMove(vector<ChessPiece*> checks = {}){}
 
-	virtual bool move(string end, bool valid){
+	virtual ChessPiece* move(string end, bool valid){
 		// kiểm tra nước đi có hợp lệ ko, nếu ko trả về false
 		// di chuyển quân cờ tới ô hợp lệ
-		if (valid == false) return false;
+		if (valid == false) return nullptr;
 		
 		// Đánh dấu đã đi nước đầu tiên
 		firstmove = true;
@@ -74,10 +74,10 @@ public:
 		location = Point(end);
 
 		// xóa quân cờ ở ô cần đến(nếu có)
+		ChessPiece* c = dataBoard[location.get_x()][location.get_y()];
 		if(get_dataBoard(location) != nullptr){
-			ChessPiece* c = dataBoard[location.get_x()][location.get_y()];
 			dataBoard[location.get_x()][location.get_y()] = nullptr;
-			delete(c);
+			// delete(c);
 		}
 		
 		// chuyển quân cờ từ ô cũ sang ô mới
@@ -86,7 +86,7 @@ public:
 		// cho ô cũ là rỗng
 		dataBoard[pre_location.get_x()][pre_location.get_y()] = nullptr;
 
-		return true;
+		return c;
 	}
 
 	char get_kindPiece() const{

@@ -9,98 +9,83 @@ using namespace std;
 
 class ChessAI {
 	private:
-		vector<vector<ChessPiece*>> *dataBoard;
+		// vector<vector<ChessPiece*>> *dataBoard;
 
 	public:
 		ChessAI(){}
 
 		ChessAI(vector<vector<ChessPiece*>> *_dataBoard){
-			this->dataBoard = _dataBoard;
+			// this->dataBoard = _dataBoard;
 		}
 
 		int getBoardScore(){
 			int score = 0;
 			for (int i = 0; i < 8; i += 1){
 				for (int j = 0; j < 8; j += 1){
-					if ((*this->dataBoard)[i][j] != nullptr){
-						std::cout << (*this->dataBoard)[i][j]->get_score() << ' ';
-						score += (*this->dataBoard)[i][j]->get_score();
+					if (ChessPiece::get_Board()[i][j] != nullptr){
+						// std::cout << ChessPiece::get_Board()[i][j]->get_score() << ' ';
+						score += ChessPiece::get_Board()[i][j]->get_score();
 					}
 				}
 			}
 			return score;
 		}
 
-		bool isLostKing(){
-			int score = 0;
-			for (int i = 0; i < 8; i += 1){
-				for (int j = 0; j < 8; j += 1){
-					if ((*this->dataBoard)[i][j] != nullptr and (*this->dataBoard)[i][j]->get_kindpiecestring() == "king"){
-						score += 1;
-					}
-				}
-			}
-			return (score < 2);
-		}
-
 		pair<int, pair<string, string>> minimax(int alpha, int beta, int depth, char player){
-			if (isLostKing()) {
-				std::cout << this->getBoardScore();
-				return {this->getBoardScore(), {"", ""}};
-			}
 			if (depth == 0) {
 				
 
-				for (int i = 0; i < 8; i += 1){
-					for (int j = 0; j < 8; j += 1){
-						std::cout << ((*this->dataBoard)[i][j] == nullptr ? '.' : (*this->dataBoard)[i][j]->get_kindPiece()) << ' ';
-					}
-					std::cout << std::endl;
-				}
+				// for (int i = 0; i < 8; i += 1){
+				// 	for (int j = 0; j < 8; j += 1){
+				// 		std::cout << (ChessPiece::get_Board()[i][j] == nullptr ? '.' : ChessPiece::get_Board()[i][j]->get_kindPiece()) << ' ';
+				// 	}
+				// 	std::cout << std::endl;
+				// }
 
 				return {this->getBoardScore(), {"", ""}};
 			}
 
 			int score = 2000;
-			pair<string, string> move = {"", ""};
+			pair<string, string> MOVE = {"", ""};
 			for (int i = 0; i < 8; i += 1){
 				for (int j = 0; j < 8; j += 1){
 
-					if ((*this->dataBoard)[i][j] != nullptr){
+					if (ChessPiece::get_Board()[i][j] != nullptr){
 
-						if ((*this->dataBoard)[i][j]->get_kind() == player){
+						if (ChessPiece::get_Board()[i][j]->get_kind() == player){
 
-							(*this->dataBoard)[i][j]->calValidMove();
-							vector<Point> validMove = (*this->dataBoard)[i][j]->get_valid_moves();
+							ChessPiece::get_Board()[i][j]->calValidMove();
+							vector<Point> validMove = ChessPiece::get_Board()[i][j]->get_valid_moves();
 
-							ChessPiece * cp = (*this->dataBoard)[i][j];
+							ChessPiece * cp = ChessPiece::get_Board()[i][j];
 							string current = Point(i, j).location();
 							for (Point nextMove : validMove){
 
-								cp->move(nextMove.location(), true);
+								ChessPiece * oldPiece = cp->move(nextMove.location(), true);
 
 								pair<int, pair<string, string>> data = minimax(alpha, beta, depth-1, player ^ 'W' ^ 'B');
 								int nextScore = data.first;
 								if (player == 'W'){
 									if ((score == 2000) or (score != 2000 and score < nextScore)){
 										score = nextScore;
-										move = {current, nextMove.location()};
+										MOVE = {current, nextMove.location()};
 										// if (score > beta) return;
 									}
 								} else if (player == 'B'){
 									if ((score == 2000) or (score != 2000 and score > nextScore)){
 										score = nextScore;
-										move = {current, nextMove.location()};
+										MOVE = {current, nextMove.location()};
 									}
 								}
 
 								cp->move(current, true);
+								ChessPiece::dataBoard[nextMove.get_x()][nextMove.get_y()] = oldPiece;
 							}
 						}
 					}
 				}
 			}
-			return {score, move};
+			return {score, MOVE};
 		}
 };
 
@@ -123,17 +108,17 @@ int main(){
 	vector<vector<ChessPiece*>> _dataBoard = ChessPiece::get_Board();
 	vector<vector<ChessPiece*>> *dataBoard = &_dataBoard;
 	ChessAI ca = ChessAI(dataBoard);
-	pair<string, string> MOVE = ca.minimax(1, 1, 1, 'B').second;
+	pair<string, string> MOVE = ca.minimax(1, 1, 5, 'B').second;
 	std::cout << MOVE.first << ' ' << MOVE.second;
 
-// 	Point p = Point(MOVE.first);
-// 	(*dataBoard)[p.get_x()][p.get_y()]->move(MOVE.second, true);
+	Point p = Point(MOVE.first);
+	(*dataBoard)[p.get_x()][p.get_y()]->move(MOVE.second, true);
 
-// for (int i = 0; i < 8; i += 1){
-// 					for (int j = 0; j < 8; j += 1){
-// 						std::cout << (ChessPiece::get_Board()[i][j] == nullptr ? '.' : ChessPiece::get_Board()[i][j]->get_kindPiece()) << ' ';
-// 					}
-// 					std::cout << std::endl;
-// 				}
+for (int i = 0; i < 8; i += 1){
+					for (int j = 0; j < 8; j += 1){
+						std::cout << (ChessPiece::get_Board()[i][j] == nullptr ? '.' : ChessPiece::get_Board()[i][j]->get_kindPiece()) << ' ';
+					}
+					std::cout << std::endl;
+				}
 	return 0;
 }

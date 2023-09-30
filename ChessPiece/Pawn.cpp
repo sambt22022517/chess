@@ -106,9 +106,10 @@ public:
 		
 
 	}
-	bool move(string end, bool valid) override{
-		if (not valid) return false;
-		ChessPiece:: move(end, valid);
+	
+	ChessPiece* move(string end, bool valid) override{
+		if (not valid) return nullptr;
+		ChessPiece* c = ChessPiece:: move(end, valid);
 		Point N, WN, EN;
 		if(kind == 'W'){
 			N = Point:: N;
@@ -129,7 +130,7 @@ public:
 
 			dataBoard[x][y] = new Queen(_kind, Point(x, y).location());
 		}
-		return true;
+		return c;
 	}
 
 	string get_kindpiecestring() override{
