@@ -7,7 +7,7 @@
 
 using namespace std;
 
-const int scoreKing = 1e9;
+const int scoreKing = 1000;
 
 class King : public ChessPiece{
 private:

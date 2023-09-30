@@ -41,9 +41,36 @@ private:
 public:
 	GAME()
 	{
-		ChessPiece::set_DataBoard(DataBoard(data_board));
+		ChessPiece::set_DataBoard(DataBoard(data_board2));
 		// std::cout << this->introduce;
 		// displayBoard();
+	}
+
+	pair<ChessPiece*, ChessPiece*> isChecking(char kind){
+		bool test = true;
+		ChessPiece *check1 = NULL, *check2 = NULL;
+		for (int i = 0; i < 8 and test; i += 1)
+		{
+			for (int j = 0; j < 8 and test; j += 1)
+			{
+				ChessPiece *op = ChessPiece::get_dataBoard(Point(i, j)); // opponent
+				if (op != nullptr and op->get_kind() != kind)
+				{
+					op->calValidMove();
+					if (op->get_check_moves().size() > 0)
+					{
+						if (not check1)
+							check1 = op;
+						else
+						{
+							check2 = op;
+							test = false;
+						}
+					}
+				}
+			}
+		}
+		return {check1, check2};
 	}
 
 	void RUN()
@@ -54,6 +81,9 @@ public:
 		// chạy tính toán game
 		bool white_turn = true;
 		string curr_pos = "", next_pos = "";
+
+
+		char player = 'W';
 
 		while (window->isOpen())
 		{
@@ -78,58 +108,47 @@ public:
 						// sf::sleep(sf::seconds(0.3)); // sleep 0.3 giây
 						this->click = true;
 					}
-				}
-
-				// else if 
+				} 
 			}
 
 			// kiểm tra chọn quân cờ và nước đi
-			if (curr_pos == "" && this->click == false)
-				continue;
-			else if (next_pos == "" && this->click == false)
-				continue;
-			else if (curr_pos == "" && this->click == true)
-			{
-				curr_pos = Point(this->mousePos.y, this->mousePos.x).location();
+			if (player){
+				if (curr_pos == "" && this->click == false)
+					continue;
+				else if (next_pos == "" && this->click == false)
+					continue;
+				else if (curr_pos == "" && this->click == true)
+				{
+					curr_pos = Point(this->mousePos.y, this->mousePos.x).location();
+					this->click = false;
+				}
 
-				this->click = false;
-			}
-
-			else if (next_pos == "" && this->click == true)
-			{
-				next_pos = Point(this->mousePos.y, this->mousePos.x).location();
-				this->click = false;
+				else if (next_pos == "" && this->click == true)
+				{
+					next_pos = Point(this->mousePos.y, this->mousePos.x).location();
+					this->click = false;
+				}
+			} else {
+				// engine();
+				// curr = ...
+				// nex =...
 			}
 
 			ChessPiece *cp = ChessPiece::get_dataBoard(Point(curr_pos));
-			if (cp == nullptr)
+			if (cp == nullptr){ // Chọn phải ô trống
+				curr_pos = "";
 				continue;
+			}
+			if (curr_pos == next_pos){
+				next_pos = "";
+				continue;
+			}
 
 			// Kiểm tra xem hiện có đang bị chiếu không
 			// Nếu có thì xác định những quân cờ đối phương đang chiếu mình
-			bool test = true;
-			ChessPiece *check1 = NULL, *check2 = NULL;
-			for (int i = 0; i < 8 and test; i += 1)
-			{
-				for (int j = 0; j < 8 and test; j += 1)
-				{
-					ChessPiece *op = ChessPiece::get_dataBoard(Point(i, j)); // opponent
-					if (op != nullptr and op->get_kind() != cp->get_kind())
-					{
-						op->calValidMove();
-						if (op->get_check_moves().size() > 1)
-						{
-							if (not check1)
-								check1 = op;
-							else
-							{
-								check2 = op;
-								test = false;
-							}
-						}
-					}
-				}
-			}
+			pair<ChessPiece*, ChessPiece*> checks = this->isChecking(cp->get_kind());
+			ChessPiece * check1 = checks.first;
+			ChessPiece * check2 = checks.second;
 
 			// Tính toán nước đi hợp lệ của quân cờ đang chọn
 			// Kiểm tra xem next_pos có hợp lệ không:
@@ -143,6 +162,7 @@ public:
 				cp->calValidMove({check1});
 			else
 				cp->calValidMove();
+			
 			std::vector<Point> valid_moves = cp->get_valid_moves();
 
 			// for (Point i : valid_moves)
@@ -154,6 +174,13 @@ public:
 				if (cp->move(next_pos, (valid_player and next_pos == i.location())))
 				{
 					white_turn = not white_turn;
+
+
+
+					// player = not player;
+					
+
+
 					break;
 				}
 			}
