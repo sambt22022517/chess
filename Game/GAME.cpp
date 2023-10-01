@@ -83,6 +83,8 @@ public:
 
 
 		ChessAI ca;
+		int depth = 2;
+		int count = 0;
 
 		// chạy tính toán game
 		bool white_turn = true;
@@ -136,7 +138,7 @@ public:
 				}
 			} else {
 				auto start = std::chrono::system_clock::now();
-				pair<string, string> MOVE = ca.minimax(-20000, 20000, 3, player, "oooo").second;
+				pair<string, string> MOVE = ca.minimax(-20000, 20000, depth, player, "oooo").second;
 				auto end = std::chrono::system_clock::now();
 				std::chrono::duration<double> time = end - start;
 				std::cout << time.count();
@@ -190,6 +192,9 @@ public:
 
 
 					player = player ^ 'W' ^ 'B';
+
+					count += 1;
+					if (count == 15) depth = 4;
 					
 
 
