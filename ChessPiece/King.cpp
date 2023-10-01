@@ -109,8 +109,9 @@ public:
 						for (Point p : cp->get_protect_point()){
 							not_valid_moves.push_back(p);
 						}
-						for (Point p : cp->get_check_moves()){
-							not_valid_moves.push_back(p);
+						vector<Point> checks = cp->get_check_moves();
+						for (int i = 1; i < (int)checks.size(); i += 1){
+							not_valid_moves.push_back(checks[i]);
 						}
 					} else {
 						Point p = Point(i, j);

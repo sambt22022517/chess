@@ -1,3 +1,6 @@
+#ifndef GRAPHIC
+#define GRAPHIC
+
 #include <SFML/Graphics.hpp>
 #include "..\ChessPiece\ChessPiece.cpp"
 #include "..\ChessPiece\Piece.cpp"
@@ -111,3 +114,5 @@ public:
 
 //     return 0;
 // }
+
+#endif

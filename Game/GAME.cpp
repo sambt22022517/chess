@@ -4,7 +4,10 @@
 #include "..\Board\Board.cpp"
 #include "..\Utility\Point.cpp"
 #include "..\Graphic\graphic.cpp"
+#include "..\ChessAI\ChessAI.cpp"
 #include <SFML/Graphics.hpp>
+#include <chrono>
+#include <ctime>
 using namespace std;
 
 class GAME
@@ -23,13 +26,13 @@ private:
 		"a8r", "b8n", "c8b", "d8q", "e8k", "f8b", "g8n", "h8r"};
 
 	vector<string> data_board2 = {
-		"a1.", "b1.", "c1.", "d1.", "e1.", "f1.", "g1.", "h1.",
-		"a2.", "b2.", "c2.", "d2.", "e2.", "f2.", "g2.", "h2.",
+		"a1.", "b1.", "c1.", "d1.", "e1.", "f1R", "g1.", "h1.",
+		"a2.", "b2.", "c2.", "d2.", "e2.", "f2.", "g2K", "h2.",
 
-		"a3.", "b3.", "c3.", "d3.", "e3k", "f3.", "g3.", "h3.",
-		"a4.", "b4.", "c4.", "d4.", "e4b", "f4.", "g4.", "h4.",
-		"a5.", "b5.", "c5.", "d5K", "e5.", "f5R", "g5.", "h5.",
-		"a6.", "b6.", "c6.", "d6.", "e6.", "f6.", "g6.", "h6.",
+		"a3.", "b3.", "c3.", "d3.", "e3r", "f3.", "g3.", "h3.",
+		"a4.", "b4.", "c4.", "d4.", "e4r", "f4.", "g4k", "h4.",
+		"a5.", "b5.", "c5.", "d5.", "e5.", "f5p", "g5n", "h5.",
+		"a6.", "b6.", "c6N", "d6.", "e6.", "f6.", "g6.", "h6R",
 
 		"a7.", "b7.", "c7.", "d7.", "e7.", "f7.", "g7.", "h7.",
 		"a8.", "b8.", "c8.", "d8.", "e8.", "f8.", "g8.", "h8."};
@@ -78,6 +81,9 @@ public:
 		sf::RenderWindow *window = new RenderWindow(sf::VideoMode(712, 712), "Chess");
 		Graphic g(window);
 
+
+		ChessAI ca;
+
 		// chạy tính toán game
 		bool white_turn = true;
 		string curr_pos = "", next_pos = "";
@@ -112,7 +118,7 @@ public:
 			}
 
 			// kiểm tra chọn quân cờ và nước đi
-			if (player){
+			if (player == 'B'){
 				if (curr_pos == "" && this->click == false)
 					continue;
 				else if (next_pos == "" && this->click == false)
@@ -129,9 +135,13 @@ public:
 					this->click = false;
 				}
 			} else {
-				// engine();
-				// curr = ...
-				// nex =...
+				auto start = std::chrono::system_clock::now();
+				pair<string, string> MOVE = ca.minimax(-20000, 20000, 3, player, "oooo").second;
+				auto end = std::chrono::system_clock::now();
+				std::chrono::duration<double> time = end - start;
+				std::cout << time.count();
+				curr_pos = MOVE.first;
+				next_pos = MOVE.second;
 			}
 
 			ChessPiece *cp = ChessPiece::get_dataBoard(Point(curr_pos));
@@ -155,7 +165,7 @@ public:
 			// Nếu có: Di chuyển -> Đổi lượt
 			// Nếu không: Chọn lại
 			// std::cout << check2 << check1;
-			std::cout << (white_turn ? "white_turn\n" : "black_turn\n");
+			std::cout << (player == 'W' ? "white_turn\n" : "black_turn\n");
 			if (check2)
 				cp->calValidMove({check1, check2});
 			else if (check1)
@@ -168,16 +178,18 @@ public:
 			// for (Point i : valid_moves)
 			// 	std::cout << i.location() << ' ';
 
-			bool valid_player = not (bool)(white_turn ^ (cp->get_kind() == 'W'));
+			bool valid_player = not (bool)((player == 'W') ^ (cp->get_kind() == 'W'));
 			for (Point i : valid_moves)
 			{
-				if (cp->move(next_pos, (valid_player and next_pos == i.location())))
+				if (valid_player and next_pos == i.location())
 				{
-					white_turn = not white_turn;
+					ChessPiece * pp = cp->move(next_pos, true);
+					// std::cout << 1;
+					delete pp;
 
 
 
-					// player = not player;
+					player = player ^ 'W' ^ 'B';
 					
 
 

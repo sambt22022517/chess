@@ -1732,7 +1732,56 @@ void ComputerMove(state s,state ns,int &i1,int &j1,int &i2,int &j2,char &c )
 	}
 }
 
-pair<int,state> GetScore(int depth,bool maximer,state s)//complete
+// pair<int,state> GetScore(int depth,bool maximer,state s)//complete
+// {
+// 	if(IsFinalState(s) || depth==0)
+// 	{
+// 		if(IsFinalState(s))
+// 		return make_pair(GetScoreFinalState(s),s);
+// 		if(depth==0)
+// 		return make_pair(GetScoreMiddleState(s),s);
+// 	}
+// 	bool IsMoveOfWhite=maximer;
+// 	vector<state> states=GetNextState(s,IsMoveOfWhite);
+// 	state beststate;
+// 	int max=-10000;
+// 	int min=10000;
+// 	if(maximer)
+// 	{
+// 		for(state ns:states)
+// 		{
+// 			pair<int,state> np=GetScore(depth-1,false,ns);
+// 			if( max<np.first )
+// 			{
+// 				max=np.first;
+// 				beststate=ns;
+// 			}
+// 			if(max>min)
+// 			{
+// 				break;
+// 			}
+// 		}
+// 		return make_pair(max,beststate)	;
+// 	}
+// 	else
+// 	{
+// 		for(state ns:states)
+// 		{
+// 			pair<int,state> np=GetScore(depth-1,true,ns);
+// 			if( min>np.first )
+// 			{
+// 				min=np.first;
+// 				beststate=ns;
+// 			}
+// 			if(max<=min)
+// 			{
+// 				break;
+// 			}
+// 		}
+// 		return make_pair(min,beststate)	;
+// 	}
+// }
+pair<int,state> GetScore(int depth,int alpha, int beta,bool maximer,state s)//complete
 {
 	if(IsFinalState(s) || depth==0)
 	{
@@ -1744,42 +1793,44 @@ pair<int,state> GetScore(int depth,bool maximer,state s)//complete
 	bool IsMoveOfWhite=maximer;
 	vector<state> states=GetNextState(s,IsMoveOfWhite);
 	state beststate;
-	int max=-10000;
-	int min=10000;
+	int value;
 	if(maximer)
 	{
+		value = int(-1e9);
 		for(state ns:states)
 		{
-			pair<int,state> np=GetScore(depth-1,false,ns);
-			if( max<np.first )
+			pair<int,state> np=GetScore(depth-1,alpha,beta,false,ns);
+			if( value<np.first )
 			{
-				max=np.first;
+				value=np.first;
 				beststate=ns;
 			}
-			if(max>min)
+			if(value >= beta)
 			{
 				break;
 			}
+			alpha = max(alpha, value);
 		}
-		return make_pair(max,beststate)	;
 	}
 	else
 	{
+		value = int(1e9);
 		for(state ns:states)
 		{
-			pair<int,state> np=GetScore(depth-1,true,ns);
-			if( min>np.first )
+			pair<int,state> np=GetScore(depth-1,alpha,beta,true,ns);
+			if( value>np.first )
 			{
-				min=np.first;
+				value=np.first;
 				beststate=ns;
 			}
-			if(max>=min)
+			if(value <= alpha)
 			{
 				break;
 			}
+			beta = min(beta, value);
 		}
-		return make_pair(min,beststate)	;
 	}
+	return make_pair(value,beststate);
 }
 int main()
 {
@@ -1812,16 +1863,17 @@ int main()
     {
     	if(nextPlayer==ComputerPlayer)
     	{
-    		if(countmove<11)
+    		if(countmove<15)
     		{
-    			depth=3;
+    			depth=4;
 			}
 			else
 			{
-				depth=3;
+				depth=8;
 			}
-    		
-    		pair<int,state> p=GetScore(depth,ComputerPlayer,s);
+    		int alpha = int(-1e9);
+    		int beta = int(1e9);
+    		pair<int,state> p=GetScore(depth,alpha,beta,ComputerPlayer,s);
     		int i1;int j1;int i2;int j2;char c;
     		ComputerMove(s,p.second,i1,j1,i2,j2,c);
     		cout<<"Created by MTM <3"<<endl;
