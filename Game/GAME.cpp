@@ -44,7 +44,7 @@ private:
 public:
 	GAME()
 	{
-		ChessPiece::set_DataBoard(DataBoard(data_board2));
+		ChessPiece::set_DataBoard(DataBoard(data_board));
 		// std::cout << this->introduce;
 		// displayBoard();
 	}
@@ -87,7 +87,6 @@ public:
 		int count = 0;
 
 		// chạy tính toán game
-		bool white_turn = true;
 		string curr_pos = "", next_pos = "";
 
 
@@ -120,7 +119,7 @@ public:
 			}
 
 			// kiểm tra chọn quân cờ và nước đi
-			if (player == 'B'){
+			if (player == 'W'){
 				if (curr_pos == "" && this->click == false)
 					continue;
 				else if (next_pos == "" && this->click == false)

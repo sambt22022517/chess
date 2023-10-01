@@ -21,7 +21,7 @@ class ChessPiece{
 public:
 	Point location;         // Vị trí trên bàn cờ
 	int score;              // Điểm của quân cờ
-	bool firstmove = true;         // kiểm tra đã đi nước đầu tiên hay chưa
+	bool firstmove = false;         // kiểm tra đã đi nước đầu tiên hay chưa
 	char kind;              // loại quân cờ trắng hay đen hay null
 	char kindPiece;         // là quân cờ nào
 
