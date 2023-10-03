@@ -11,7 +11,20 @@ const int scoreBishop = 3;
 
 class Bishop : public ChessPiece{
 public:
-	Bishop() : ChessPiece(){}
+public:
+	Bishop() : ChessPiece(){
+		
+		pos_score = {
+				{-2,-1,-1,-1,-1,-1,-1,-2},
+				{-1,0.5,0,0,0,0,0.5,-1},
+				{-1,1,1,1,1,1,1,-1},
+				{-1,0,1,1,1,1,0,-1},
+				{-1,0.5,0.5,1,1,0.5,0.5,-1},
+				{-1,0,0.5,1,1,0.5,0,-1},
+				{-1,0,0,0,0,0,0,-1},
+				{-2,-1,-1,-1,-1,-1,-1,-2}
+				};
+	}
 
 	Bishop(char kind, string start) : ChessPiece(kind, start){
 		if(kind == 'B'){
@@ -30,6 +43,16 @@ public:
 				break;
 			}   
 		}
+		pos_score = {
+				{-2,-1,-1,-1,-1,-1,-1,-2},
+				{-1,0.5,0,0,0,0,0.5,-1},
+				{-1,1,1,1,1,1,1,-1},
+				{-1,0,1,1,1,1,0,-1},
+				{-1,0.5,0.5,1,1,0.5,0.5,-1},
+				{-1,0,0.5,1,1,0.5,0,-1},
+				{-1,0,0,0,0,0,0,-1},
+				{-2,-1,-1,-1,-1,-1,-1,-2}
+				};
 	}
 
 	void calValidMove(vector<ChessPiece*> checks = {}) override{

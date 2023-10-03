@@ -11,8 +11,18 @@ const int scoreRock = 5;
 
 class Rock : public ChessPiece{
 public:
+
 	Rock() : ChessPiece(){
-		
+		pos_score = {
+			{0,0,0,0.5,0.5,0,0,0},
+			{-0.5,0,0,0,0,0,0,-0.5},
+			{-0.5,0,0,0,0,0,0,-0.5},
+			{-0.5,0,0,0,0,0,0,-0.5},
+			{-0.5,0,0,0,0,0,0,-0.5},
+			{-0.5,0,0,0,0,0,0,-0.5},
+			{0.5,1,1,1,1,1,1,0.5},
+			{0,0,0,0,0,0,0,0}
+			};
 	}
 	Rock(char kind, string start) : ChessPiece(kind, start){
 		if(kind == 'B'){
@@ -23,6 +33,16 @@ public:
 			ChessPiece:: score = scoreRock;
 			ChessPiece:: kindPiece = 'R';
 		}
+		pos_score = {
+			{0,0,0,0.5,0.5,0,0,0},
+			{-0.5,0,0,0,0,0,0,-0.5},
+			{-0.5,0,0,0,0,0,0,-0.5},
+			{-0.5,0,0,0,0,0,0,-0.5},
+			{-0.5,0,0,0,0,0,0,-0.5},
+			{-0.5,0,0,0,0,0,0,-0.5},
+			{0.5,1,1,1,1,1,1,0.5},
+			{0,0,0,0,0,0,0,0}
+			};
 	}
 	
 	void calValidMove(vector<ChessPiece*> checks = {}) override {

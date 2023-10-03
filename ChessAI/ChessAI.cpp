@@ -16,12 +16,15 @@ class ChessAI {
 	public:
 		ChessAI(){}
 
-		int getBoardScore(){
-			int score = 0;
+		double getBoardScore(){
+			double score = 0;
 			for (int i = 0; i < 8; i += 1){
 				for (int j = 0; j < 8; j += 1){
 					if (ChessPiece::get_Board()[i][j] != nullptr){
-						score += ChessPiece::get_Board()[i][j]->get_score();
+						int c = ChessPiece::get_Board()[i][j]->get_score();
+						char k = ChessPiece::get_Board()[i][j]->get_kind();
+						int row = (k == 'W' ? i : 7-i);
+						score += (c + c/abs(c)*ChessPiece::get_Board()[i][j]->pos_score[row][j]);
 					}
 				}
 			}
@@ -59,15 +62,7 @@ class ChessAI {
 			return (a == 0 ? true : false);
 		}
 
-		pair<pair<int, int>, pair<string, string>> minimax(int _alpha, int _beta, int depth, char player, string prev){
-			if (depth == -1) {
-				return {{this->getBoardScore(), depth}, {"", ""}};
-			}
-
-			int alpha = _alpha;
-			int beta = _beta;
-
-
+		pair<ChessPiece*, ChessPiece*> isChecking(char kind){
 			bool test = true;
 			ChessPiece *check1 = NULL, *check2 = NULL;
 			for (int i = 0; i < 8 and test; i += 1)
@@ -75,7 +70,7 @@ class ChessAI {
 				for (int j = 0; j < 8 and test; j += 1)
 				{
 					ChessPiece *op = ChessPiece::get_dataBoard(Point(i, j)); // opponent
-					if (op != nullptr and op->get_kind() != player)
+					if (op != nullptr and op->get_kind() != kind)
 					{
 						op->calValidMove();
 						if (op->get_check_moves().size() > 0)
@@ -91,6 +86,17 @@ class ChessAI {
 					}
 				}
 			}
+			return {check1, check2};
+		}
+
+		pair<pair<double, int>, pair<string, string>> minimax(int _alpha, int _beta, int depth, char player, string prev){
+			if (depth == -1) {
+				return {{this->getBoardScore(), depth}, {"", ""}};
+			}
+
+			int alpha = _alpha;
+			int beta = _beta;
+
 
 			bool checkMate = true;
 
@@ -103,8 +109,14 @@ class ChessAI {
 					if (ChessPiece::get_Board()[i][j] != nullptr){
 
 						if (ChessPiece::get_Board()[i][j]->get_kind() == player){
-
 							ChessPiece * cp = ChessPiece::get_Board()[i][j];
+
+
+							pair<ChessPiece*, ChessPiece*> checks = this->isChecking(cp->get_kind());
+							ChessPiece * check1 = checks.first;
+							ChessPiece * check2 = checks.second;
+
+
 							if (check2)
 								cp->calValidMove({check1, check2});
 							else if (check1)
@@ -121,8 +133,8 @@ class ChessAI {
 
 								ChessPiece * oldPiece = cp->move(nextMove.location(), true);
 
-								pair<pair<int, int>, pair<string, string>> data = minimax(alpha, beta, depth-1, player ^ 'W' ^ 'B', current+nextMove.location());
-								int nextScore = data.first.first;
+								pair<pair<double, int>, pair<string, string>> data = minimax(alpha, beta, depth-1, player ^ 'W' ^ 'B', current+nextMove.location());
+								double nextScore = data.first.first;
 								int DEPTH = data.first.second;
 
 								if (player == 'W'){

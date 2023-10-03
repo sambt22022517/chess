@@ -31,6 +31,7 @@ public:
 	vector<Point> validMoves; // Mảng lưu những vị trí có thể đi
 	vector<Point> checkMoves; // Mảng lưu những vị trí ở trên đường chiếu vua đối thủ. Giải thích ở cuối file.
 	vector<Point> protectPoints; // Mảng lưu những vị trí mà quân cờ đang bảo vệ
+	vector<vector<double>> pos_score;
 public:
 	ChessPiece(){}
 	virtual ~ChessPiece(){}
@@ -69,7 +70,7 @@ public:
 		if (valid == false) return nullptr;
 		
 		// Đánh dấu đã đi nước đầu tiên
-		firstmove = true;
+		// firstmove = true;
 		Point pre_location = location;
 		location = Point(end);
 

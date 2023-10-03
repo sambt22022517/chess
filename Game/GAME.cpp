@@ -26,16 +26,16 @@ private:
 		"a8r", "b8n", "c8b", "d8q", "e8k", "f8b", "g8n", "h8r"};
 
 	vector<string> data_board2 = {
-		"a1.", "b1.", "c1.", "d1.", "e1.", "f1R", "g1.", "h1.",
-		"a2.", "b2.", "c2.", "d2.", "e2.", "f2.", "g2K", "h2.",
+		"a1R", "b1N", "c1B", "d1Q", "e1K", "f1B", "g1N", "h1R",
+		"a2.", "b2P", "c2P", "d2P", "e2P", "f2P", "g2P", "h2P",
 
-		"a3.", "b3.", "c3.", "d3.", "e3r", "f3.", "g3.", "h3.",
-		"a4.", "b4.", "c4.", "d4.", "e4r", "f4.", "g4k", "h4.",
-		"a5.", "b5.", "c5.", "d5.", "e5.", "f5p", "g5n", "h5.",
-		"a6.", "b6.", "c6N", "d6.", "e6.", "f6.", "g6.", "h6R",
+		"a3.", "b3.", "c3.", "d3.", "e3.", "f3.", "g3.", "h3.",
+		"a4.", "b4.", "c4.", "d4.", "e4.", "f4.", "g4.", "h4p",
+		"a5.", "b5.", "c5.", "d5.", "e5.", "f5.", "g5.", "h5.",
+		"a6.", "b6.", "c6.", "d6.", "e6.", "f6.", "g6.", "h6.",
 
-		"a7.", "b7.", "c7.", "d7.", "e7.", "f7.", "g7.", "h7.",
-		"a8.", "b8.", "c8.", "d8.", "e8.", "f8.", "g8.", "h8."};
+		"a7p", "b7P", "c7p", "d7p", "e7p", "f7p", "g7p", "h7p",
+		"a8r", "b8n", "c8b", "d8q", "e8k", "f8b", "g8n", "h8r"};
 
 	string introduce = "This chess game is just for ...\nType your moving by this fomat:\n\n<curr_col><curr_row> <next_col><next_row>.\n\nGood luck!\n\n";
 	sf::Vector2i mousePos; // lấy vị trí của chuột
@@ -90,7 +90,7 @@ public:
 		string curr_pos = "", next_pos = "";
 
 
-		char player = 'W';
+		char player = 'B';
 
 		while (window->isOpen())
 		{
@@ -176,8 +176,8 @@ public:
 			
 			std::vector<Point> valid_moves = cp->get_valid_moves();
 
-			// for (Point i : valid_moves)
-			// 	std::cout << i.location() << ' ';
+			for (Point i : valid_moves)
+				std::cout << i.location() << ' ';
 
 			bool valid_player = not (bool)((player == 'W') ^ (cp->get_kind() == 'W'));
 			for (Point i : valid_moves)
@@ -185,7 +185,7 @@ public:
 				if (valid_player and next_pos == i.location())
 				{
 					ChessPiece * pp = cp->move(next_pos, true);
-					// std::cout << 1;
+					cp->firstmove = true;
 					delete pp;
 
 
